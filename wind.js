@@ -1,7 +1,8 @@
 const request = require('request');
 const express = require('express');
-const moment = require('moment')
-const app = express();
+// const app = express();
+const moment = require('moment');
+const METERSPERSECONDCONVERTMPH = 2.23694
 
 
 app.get('/', (req,res) => {
@@ -40,8 +41,8 @@ app.get('/', (req,res) => {
           })
         }
       }
-
-      console.log(winds);
     }
   )
 })
+
+console.log(METERSPERSECONDCONVERTMPH);
