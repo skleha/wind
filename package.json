@@ -1,0 +1,22 @@
+{
+  "name": "wind",
+  "version": "1.0.0",
+  "description": "",
+  "main": "wind.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thejenkdog/wind.git"
+  },
+  "author": "steve kleha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thejenkdog/wind/issues"
+  },
+  "homepage": "https://github.com/thejenkdog/wind#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
