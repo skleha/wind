@@ -16,7 +16,7 @@ const svg = d3.select("#my_dataviz")
 d3.csv("https: ",
 
   function(d) {
-    return { date: d3.timeParse("%Y-%m-%d")(d.date), value: d.value}
+    return { date: d3.timeParse("%Y-%m-%d-%h-%s")(d.date), value: d.value}
   },
 
   function(data) {
