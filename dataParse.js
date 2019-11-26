@@ -10,7 +10,6 @@ request("https://www.ndbc.noaa.gov/data/realtime2/FTPC1.txt", function(
   body
 ) {
   const lines = body.split(`\n`);
-  // let winds = [];
 
   for (let i = 2; i < 12; i++) {
     const line = lines[i].split(" ");
@@ -40,10 +39,4 @@ request("https://www.ndbc.noaa.gov/data/realtime2/FTPC1.txt", function(
       });
     }
   }
-
-  console.log(winds);
 });
-
-
-exports.winds = winds;
-
