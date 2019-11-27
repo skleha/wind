@@ -1,3 +1,4 @@
+// DATA X-AXIS IS ON TIME SCALE
 
 d3.text("https://www.ndbc.noaa.gov/data/realtime2/FTPC1.txt", function (error, text) {
   if (error) throw error;
