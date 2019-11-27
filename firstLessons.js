@@ -11,9 +11,9 @@ d3.text("https://www.ndbc.noaa.gov/data/realtime2/FTPC1.txt", function (error, t
   console.log(text);
 });
 
-d3.text("sampleWindFile.txt").then((text) => {
-  console.log(text);
-})
+// d3.text("sampleWindFile.txt").then((text) => {
+//   console.log(text);
+// })
 
 
 // Add a canvas
