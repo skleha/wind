@@ -6,14 +6,14 @@ const data = [
 ];
 
 // This works
-// d3.text("https://www.ndbc.noaa.gov/data/realtime2/FTPC1.txt", function (error, text) {
-//   if (error) throw error;
-//   console.log(text); // Hello, world!
-// });
+d3.text("https://www.ndbc.noaa.gov/data/realtime2/FTPC1.txt", function (error, text) {
+  if (error) throw error;
+  console.log(text);
+});
 
-// d3.text("sampleWindFile.txt").then((text) => {
-//   console.log(text);
-// })
+d3.text("sampleWindFile.txt").then((text) => {
+  console.log(text);
+})
 
 
 // Add a canvas

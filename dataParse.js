@@ -40,3 +40,5 @@ request("https://www.ndbc.noaa.gov/data/realtime2/FTPC1.txt", function(
     }
   }
 });
+
+console.log(winds);
