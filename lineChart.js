@@ -18,14 +18,14 @@ function parseAllWindData(text) {
       parseInt(line[4])       // minute
     )
 
-  allWindData.push({
-    date: windDate,
-    hourValue: windDate.getHours() + windDate.getMinutes() / 60,
-    value: parseFloat((windSpeed * METERSPERSECONDCONVERTMPH).toFixed(2))
-  });
+    allWindData.push({
+      date: windDate,
+      hourValue: windDate.getHours() + windDate.getMinutes() / 60,
+      value: parseFloat((windSpeed * METERSPERSECONDCONVERTMPH).toFixed(2))
+    });
+  }
 
   return allWindData;
-  }
 }
 
 
@@ -36,76 +36,52 @@ function parseAllWindData(text) {
 d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/realtime2/FTPC1.txt", function (error, text) {
   if (error) throw error;
 
-  // const METERSPERSECONDCONVERTMPH = 2.23694;
-  // const allWindData = []; 
-  // let displayData, dayMinus0, dayMinus1;
-  // const lines = text.split(`\n`);
+  const allWindData = parseAllWindData(text);
+  
 
-  // for (let i = 2; i < 700; i++) {
-  //   const line = lines[i].split(" ");
-  //   const windSpeed = line[7];
+  const today = new Date();
+  today.setHours(today.getHours() - 8);
 
-  //   let windDate = new Date(
-  //     parseInt(line[0]),      // year
-  //     parseInt(line[1] - 1),  // month index
-  //     parseInt(line[2]),      // day
-  //     parseInt(line[3] - 8),  // UTC hour converted to local
-  //     parseInt(line[4])       // minute
-  //   )
+  const startMinus0 = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate() - 1,
+    9) // Graph x-axis always starts at 9am
 
-  //   allWindData.push({
-  //     date: windDate,
-  //     hourValue: windDate.getHours() + windDate.getMinutes() / 60,
-  //     value: parseFloat((windSpeed * METERSPERSECONDCONVERTMPH).toFixed(2))
-  //   });
+  const endMinus0 = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate() - 1,
+    18) // Graphy x-axis always finishes at 6pm
 
-    const allWindData = parseAllWindData(text);
+  const startMinus1 = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate() - 2,
+    9) // Graph x-axis always starts at 9am
 
+  const endMinus1 = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate() - 2,
+    18) // Graphy x-axis always finishes at 6pm
 
-    const today = new Date();
-    today.setHours(today.getHours() - 8);
+  dayMinus0 = allWindData.filter(ele => {
+    return ele.date.getTime() > startMinus0.getTime() &&
+      ele.date.getTime() < endMinus0.getTime();
+  })
 
-    const startMinus0 = new Date(
-      today.getFullYear(),
-      today.getMonth(),
-      today.getDate() - 1,
-      9) // Graph x-axis always starts at 9am
+  dayMinus1 = allWindData.filter(ele => {
+    return ele.date.getTime() > startMinus1.getTime() &&
+      ele.date.getTime() < endMinus1.getTime();
+  })
 
-    const endMinus0 = new Date(
-      today.getFullYear(),
-      today.getMonth(),
-      today.getDate() - 1,
-      18) // Graphy x-axis always finishes at 6pm
-
-    const startMinus1 = new Date(
-      today.getFullYear(),
-      today.getMonth(),
-      today.getDate() - 2,
-      9) // Graph x-axis always starts at 9am
-
-    const endMinus1 = new Date(
-      today.getFullYear(),
-      today.getMonth(),
-      today.getDate() - 2,
-      18) // Graphy x-axis always finishes at 6pm
-
-    dayMinus0 = allWindData.filter(ele => {
-      return ele.date.getTime() > startMinus0.getTime() &&
-        ele.date.getTime() < endMinus0.getTime();
-    })
-
-    dayMinus1 = allWindData.filter(ele => {
-      return ele.date.getTime() > startMinus1.getTime() &&
-        ele.date.getTime() < endMinus1.getTime();
-    })
-
-    displayData = {
-      dayMinus0,
-      dayMinus1
-    };
+  displayData = {
+    dayMinus0,
+    dayMinus1
+  };
 
 
-  }
 
   let margin = { top: 10, right: 30, bottom: 48, left: 55 },
     width = 800 - margin.left - margin.right,
