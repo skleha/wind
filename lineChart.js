@@ -1,11 +1,9 @@
 
 
-d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/realtime2/FTPC1.txt", function (error, text) {
-  if (error) throw error;
+function parseAllWindData(text) {
 
   const METERSPERSECONDCONVERTMPH = 2.23694;
-  const allWindData = []; 
-  let displayData, dayMinus0, dayMinus1;
+  const allWindData = [];
   const lines = text.split(`\n`);
 
   for (let i = 2; i < 700; i++) {
@@ -20,11 +18,49 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
       parseInt(line[4])       // minute
     )
 
-    allWindData.push({
-      date: windDate,
-      hourValue: windDate.getHours() + windDate.getMinutes() / 60,
-      value: parseFloat((windSpeed * METERSPERSECONDCONVERTMPH).toFixed(2))
-    });
+  allWindData.push({
+    date: windDate,
+    hourValue: windDate.getHours() + windDate.getMinutes() / 60,
+    value: parseFloat((windSpeed * METERSPERSECONDCONVERTMPH).toFixed(2))
+  });
+
+  return allWindData;
+  }
+}
+
+
+
+
+
+
+d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/realtime2/FTPC1.txt", function (error, text) {
+  if (error) throw error;
+
+  // const METERSPERSECONDCONVERTMPH = 2.23694;
+  // const allWindData = []; 
+  // let displayData, dayMinus0, dayMinus1;
+  // const lines = text.split(`\n`);
+
+  // for (let i = 2; i < 700; i++) {
+  //   const line = lines[i].split(" ");
+  //   const windSpeed = line[7];
+
+  //   let windDate = new Date(
+  //     parseInt(line[0]),      // year
+  //     parseInt(line[1] - 1),  // month index
+  //     parseInt(line[2]),      // day
+  //     parseInt(line[3] - 8),  // UTC hour converted to local
+  //     parseInt(line[4])       // minute
+  //   )
+
+  //   allWindData.push({
+  //     date: windDate,
+  //     hourValue: windDate.getHours() + windDate.getMinutes() / 60,
+  //     value: parseFloat((windSpeed * METERSPERSECONDCONVERTMPH).toFixed(2))
+  //   });
+
+    const allWindData = parseAllWindData(text);
+
 
     const today = new Date();
     today.setHours(today.getHours() - 8);
