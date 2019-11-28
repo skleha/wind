@@ -1,44 +1,28 @@
-const request = require("request");
-const moment = require("moment");
 const METERSPERSECONDCONVERTMPH = 2.23694;
+const windData = [];
 
-let winds = [];
+d3.text("https://www.ndbc.noaa.gov/data/realtime2/FTPC1.txt", function (error, text) {
+  if (error) throw error;
+  
+  const lines = text.split(`\n`);
 
-request("https://www.ndbc.noaa.gov/data/realtime2/FTPC1.txt", function(
-  error,
-  response,
-  body
-) {
-  const lines = body.split(`\n`);
-
-  for (let i = 2; i < 12; i++) {
+  for (let i = 2; i < 5; i++) {
     const line = lines[i].split(" ");
     const windSpeed = line[7];
 
-    const date = {
-      year: line[0],
-      month: line[1],
-      day: line[2],
-      hour: line[3],
-      minute: line[4]
-    };
-
-    if (!date.year || !date.month || !date.day || !date.hour || !date.minute)
-      continue;
-
-    const timestamp = moment(
-      `${date.year}-${date.month}-${date.day}T${date.hour}:${date.minute}`
+    let windDate = new Date(
+      parseInt(line[0]),
+      parseInt(line[1] - 1),
+      parseInt(line[2]),
+      parseInt(line[3] - 8),
+      parseInt(line[4])
     )
-      .subtract(8, "hours")
-      .format("YYYY-MM-DD-hh-mm");
-
-    if (windSpeed) {
-      winds.push({
-        date: timestamp,
-        value: parseFloat(windSpeed * METERSPERSECONDCONVERTMPH).toFixed(1),
-      });
-    }
+  
+    windData.push({
+      date: windDate,
+      value: parseFloat(windSpeed * METERSPERSECONDCONVERTMPH).toFixed(1)
+    });
   }
 });
 
-console.log(winds);
+console.log(windData);
