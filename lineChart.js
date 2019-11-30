@@ -6,7 +6,7 @@ function parseAllWindData(text) {
   const allWindData = [];
   const lines = text.split(`\n`);
 
-  for (let i = 2; i < 700; i++) {
+  for (let i = 2; i < lines.length; i++) {
     const line = lines[i].split(" ");
     const windSpeed = line[7];
 
