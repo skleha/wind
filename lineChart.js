@@ -1,5 +1,4 @@
 
-
 function parseAllWindData(text) {
 
   const METERSPERSECONDCONVERTMPH = 2.23694;
@@ -27,9 +26,6 @@ function parseAllWindData(text) {
 
   return allWindData;
 }
-
-
-
 
 
 
