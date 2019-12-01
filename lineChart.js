@@ -5,10 +5,13 @@ function parseAllWindData(text) {
   const allWindData = [];
   const lines = text.split(`\n`);
 
-  for (let i = 2; i < lines.length; i++) {
+  for (let i = 2; i < 700; i++) {
     const line = lines[i].split(" ");
     const windSpeed = line[7];
-
+    if (windSpeed === "") {
+      console.log(line);
+      console.log(windSpeed);
+    }
     let windDate = new Date(
       parseInt(line[0]),      // year
       parseInt(line[1] - 1),  // month index
@@ -24,16 +27,63 @@ function parseAllWindData(text) {
     });
   }
 
+
   return allWindData;
 }
 
+function createDisplayData(allWindData) {
+  
+  const today = new Date();
+  today.setHours(today.getHours() - 8);
+
+  const startMinus0 = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate() - 1,
+    9) // Graph x-axis always starts at 9am
+
+  const endMinus0 = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate() - 1,
+    18) // Graphy x-axis always finishes at 6pm
+
+  const startMinus1 = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate() - 2,
+    9) // Graph x-axis always starts at 9am
+
+  const endMinus1 = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate() - 2,
+    18) // Graphy x-axis always finishes at 6pm
+
+  dayMinus0 = allWindData.filter(ele => {
+    return ele.date.getTime() > startMinus0.getTime() &&
+      ele.date.getTime() < endMinus0.getTime();
+  })
+
+  dayMinus1 = allWindData.filter(ele => {
+    return ele.date.getTime() > startMinus1.getTime() &&
+      ele.date.getTime() < endMinus1.getTime();
+  })
+
+  const displayData = {
+    dayMinus0,
+    dayMinus1
+  };
+
+  return displayData;
+}
 
 
-d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/realtime2/FTPC1.txt", function (error, text) {
+d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/realtime2/46026.txt", function (error, text) {
   if (error) throw error;
 
   const allWindData = parseAllWindData(text);
-  
+  // const displayData = createDisplayData(allWindData);
 
   const today = new Date();
   today.setHours(today.getHours() - 8);
@@ -72,7 +122,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
       ele.date.getTime() < endMinus1.getTime();
   })
 
-  displayData = {
+  const displayData = {
     dayMinus0,
     dayMinus1
   };
