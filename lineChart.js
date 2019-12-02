@@ -5,7 +5,7 @@ function parseAllWindData(text) {
   const allWindData = [];
   const lines = text.split(`\n`);
 
-  for (let i = 2; i < 700; i++) {
+  for (let i = 2; i < lines.length; i++) {
     let line = lines[i]
     line = line.replace(/  +/g, ' ');
     line = line.split(" ");    
@@ -39,29 +39,67 @@ function createDisplayData(allWindData) {
   const today = new Date();
   today.setHours(today.getHours() - 8);
 
+
   const startMinus1 = new Date(
     today.getFullYear(),
     today.getMonth(),
     today.getDate() - 1,
-    9) // Graph x-axis always starts at 9am
-
+    9)
   const endMinus1 = new Date(
     today.getFullYear(),
     today.getMonth(),
     today.getDate() - 1,
-    18) // Graphy x-axis always finishes at 6pm
+    18)
+
 
   const startMinus2 = new Date(
     today.getFullYear(),
     today.getMonth(),
     today.getDate() - 2,
-    9) // Graph x-axis always starts at 9am
-
+    9)
   const endMinus2 = new Date(
     today.getFullYear(),
     today.getMonth(),
     today.getDate() - 2,
-    18) // Graphy x-axis always finishes at 6pm
+    18)
+
+
+  const startMinus3 = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate() - 3,
+    9)
+  const endMinus3 = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate() - 3,
+    18)
+
+
+  const startMinus4 = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate() - 4,
+    9)
+  const endMinus4 = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate() - 4,
+    18)
+
+
+  const startMinus5 = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate() - 5,
+    9)
+  const endMinus5 = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate() - 5,
+    18)
+
+
 
   dayMinus1 = allWindData.filter(ele => {
     return ele.date.getTime() > startMinus1.getTime() &&
@@ -73,9 +111,28 @@ function createDisplayData(allWindData) {
       ele.date.getTime() < endMinus2.getTime();
   })
 
+  dayMinus3 = allWindData.filter(ele => {
+    return ele.date.getTime() > startMinus3.getTime() &&
+      ele.date.getTime() < endMinus3.getTime();
+  })
+
+  dayMinus4 = allWindData.filter(ele => {
+    return ele.date.getTime() > startMinus4.getTime() &&
+      ele.date.getTime() < endMinus4.getTime();
+  })
+
+  dayMinus5 = allWindData.filter(ele => {
+    return ele.date.getTime() > startMinus5.getTime() &&
+      ele.date.getTime() < endMinus5.getTime();
+  })
+
+
   const displayData = {
     dayMinus1,
     dayMinus2,
+    dayMinus3,
+    dayMinus4,
+    dayMinus5,
   };
 
   return displayData;
@@ -85,9 +142,9 @@ function getDataSetName(displayName) {
   const translator = { 
     "Yesterday" : "dayMinus1",
     "Two Days Ago" : "dayMinus2",
-    // "Three Days Ago" : dayMinus3,
-    // "Four Days Ago" : dayMinus4,
-    // "Five Days Ago" : dayMinus5,
+    "Three Days Ago" : "dayMinus3",
+    "Four Days Ago" : "dayMinus4",
+    "Five Days Ago" : "dayMinus5",
   }
 
   return translator[displayName];
@@ -169,7 +226,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
     .style("text-anchor", "middle")
     .text("speed in miles per hour (mph)");
 
-  let allData = ["Yesterday", "Two Days Ago"];
+  let allData = ["Yesterday", "Two Days Ago", "Three Days Ago", "Four Days Ago", "Five Days Ago"];
 
   d3.select("#selectButton")
     .selectAll('myOptions')
