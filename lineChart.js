@@ -35,105 +35,33 @@ function parseAllWindData(text) {
 
 
 function createDisplayData(allWindData) {
-  
+  const displayData = {};
   const today = new Date();
   today.setHours(today.getHours() - 8);
 
+  for (var i = 1; i <= 5; i++) {
 
-  const startMinus1 = new Date(
-    today.getFullYear(),
-    today.getMonth(),
-    today.getDate() - 1,
-    9)
-  const endMinus1 = new Date(
-    today.getFullYear(),
-    today.getMonth(),
-    today.getDate() - 1,
-    18)
+    let begin = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate() - i,
+      9
+    )
 
+    let end = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate() - i,
+      18
+    )
 
-  const startMinus2 = new Date(
-    today.getFullYear(),
-    today.getMonth(),
-    today.getDate() - 2,
-    9)
-  const endMinus2 = new Date(
-    today.getFullYear(),
-    today.getMonth(),
-    today.getDate() - 2,
-    18)
+    const data = allWindData.filter(ele => {    
+      return ele.date.getTime() > begin.getTime() &&
+        ele.date.getTime() < end.getTime();
+    });
 
-
-  const startMinus3 = new Date(
-    today.getFullYear(),
-    today.getMonth(),
-    today.getDate() - 3,
-    9)
-  const endMinus3 = new Date(
-    today.getFullYear(),
-    today.getMonth(),
-    today.getDate() - 3,
-    18)
-
-
-  const startMinus4 = new Date(
-    today.getFullYear(),
-    today.getMonth(),
-    today.getDate() - 4,
-    9)
-  const endMinus4 = new Date(
-    today.getFullYear(),
-    today.getMonth(),
-    today.getDate() - 4,
-    18)
-
-
-  const startMinus5 = new Date(
-    today.getFullYear(),
-    today.getMonth(),
-    today.getDate() - 5,
-    9)
-  const endMinus5 = new Date(
-    today.getFullYear(),
-    today.getMonth(),
-    today.getDate() - 5,
-    18)
-
-
-
-  dayMinus1 = allWindData.filter(ele => {
-    return ele.date.getTime() > startMinus1.getTime() &&
-      ele.date.getTime() < endMinus1.getTime();
-  })
-
-  dayMinus2 = allWindData.filter(ele => {
-    return ele.date.getTime() > startMinus2.getTime() &&
-      ele.date.getTime() < endMinus2.getTime();
-  })
-
-  dayMinus3 = allWindData.filter(ele => {
-    return ele.date.getTime() > startMinus3.getTime() &&
-      ele.date.getTime() < endMinus3.getTime();
-  })
-
-  dayMinus4 = allWindData.filter(ele => {
-    return ele.date.getTime() > startMinus4.getTime() &&
-      ele.date.getTime() < endMinus4.getTime();
-  })
-
-  dayMinus5 = allWindData.filter(ele => {
-    return ele.date.getTime() > startMinus5.getTime() &&
-      ele.date.getTime() < endMinus5.getTime();
-  })
-
-
-  const displayData = {
-    dayMinus1,
-    dayMinus2,
-    dayMinus3,
-    dayMinus4,
-    dayMinus5,
-  };
+    displayData[`dayMinus${i}`] = data;
+  }
 
   return displayData;
 }
