@@ -7,7 +7,7 @@ function parseAllWindData(text) {
 
   for (let i = 2; i < lines.length; i++) {
     let line = lines[i]
-    line = line.replace(/  +/g, ' ');
+    line = line.replace(/  +/g, ' '); // extra spaces in data
     line = line.split(" ");    
 
     const windSpeed = line[7];
@@ -34,6 +34,33 @@ function parseAllWindData(text) {
 }
 
 
+function averageData(oneDayData) {
+  const averageData = [];
+
+  for (var i = 9; i < 18; i++) {
+    let count = 0;
+    let sum = 0;
+
+    oneDayData.forEach(ele => {
+      if (ele.hourValue >= i && ele.hourValue < (i + 1)) {
+        sum += ele.value;
+        count++;
+      }
+    });
+
+    if (count != 0) {
+      averageData.push({
+        hourValue: i + .5,
+        value: parseFloat((sum / count).toFixed(2)),
+      })
+    }
+  }
+
+  return averageData;
+}
+
+
+
 function createDisplayData(allWindData) {
   const displayData = {};
   const today = new Date();
@@ -55,12 +82,13 @@ function createDisplayData(allWindData) {
       18
     )
 
-    const data = allWindData.filter(ele => {    
+    const oneDayData = allWindData.filter(ele => {    
       return ele.date.getTime() > begin.getTime() &&
         ele.date.getTime() < end.getTime();
     });
 
-    displayData[`dayMinus${i}`] = data;
+    displayData[`dayMinus${i}`] = oneDayData;
+    displayData[`avgDayMinus${i}`] = averageData(oneDayData);
   }
 
   return displayData;
@@ -68,7 +96,7 @@ function createDisplayData(allWindData) {
 
 
 function getDataSetName(displayName) {
-  const translator = { 
+  const displayNameToDataName = { 
     "Yesterday" : "dayMinus1",
     "Two Days Ago" : "dayMinus2",
     "Three Days Ago" : "dayMinus3",
@@ -76,7 +104,7 @@ function getDataSetName(displayName) {
     "Five Days Ago" : "dayMinus5",
   }
 
-  return translator[displayName];
+  return displayNameToDataName[displayName];
 }
 
 
@@ -85,6 +113,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
 
   const allWindData = parseAllWindData(text);
   const displayData = createDisplayData(allWindData);
+  console.log(displayData);
 
   let margin = { top: 10, right: 30, bottom: 48, left: 55 },
     width = 800 - margin.left - margin.right,
@@ -130,6 +159,19 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
       .style("fill", "none")
       .style("stroke-width", 3)
   
+  svg
+    .append("g")
+    .append("path")
+    .datum(displayData.avgDayMinus1)
+      .attr("d", d3.line()
+        .curve(d3.curveBasis)
+        .x((d) => { return x(d.hourValue) })
+        .y((d) => { return y(d.value) }))
+    .attr("stroke", "#eb4034")
+    .style("fill", "none")
+    .style("stroke-width", 2)
+
+
   let dot = svg
     .selectAll("circle")
     .data(displayData.dayMinus1)
@@ -140,7 +182,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
       .attr("r", 4)
       .style("fill", "#4287f5")
 
-      
+
   // Axis labels
 
   svg.append("text")
