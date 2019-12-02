@@ -24,4 +24,8 @@ h1 {
   width: 75%;
 }
 
+#selectButton {
+  margin-top: 10px;
+  font-size: 14px;
+}
 
