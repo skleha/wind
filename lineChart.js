@@ -144,11 +144,12 @@ function niceDate(jsDateObject) {
 
 
 
-d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/realtime2/FTPC1.txt", function (error, text) {
+d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/realtime2/PXOC1.txt", function (error, text) {
   if (error) throw error;
 
   const allWindData = parseAllWindData(text);
   const displayData = createDisplayData(allWindData);
+  console.log(displayData);
 
   let margin = { top: 10, right: 30, bottom: 48, left: 55 },
     width = 900 - margin.left - margin.right,
@@ -176,7 +177,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
 
 
   let y = d3.scaleLinear()
-    .domain([0, 35])
+    .domain([0, 45])
     .range([height, 0])
 
   let yAxisCall = d3.axisLeft(y);
@@ -254,9 +255,6 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
     const dataSetName = getDataSetName(selectedData);
     const dataFilter = displayData[dataSetName];
 
-    const avgSetName = getAvgSetName(selectedData);
-    const avgDataFilter = displayData[avgSetName];
-
     line
       .datum(dataFilter)
       .transition()
@@ -266,6 +264,9 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
         .y(function (d) { return y(d.value) })
       )
   
+    const avgSetName = getAvgSetName(selectedData);
+    const avgDataFilter = displayData[avgSetName];
+
     dot
       .data(dataFilter)
       .transition()
@@ -282,7 +283,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
         .x(function (d) { return x(d.hourValue) })
         .y(function (d) { return y(d.value) })
       )
-  }
+   }
 
   d3.select("#selectButton").on("change", function(d) {
     let selectedOption = d3.select(this).property("value")
