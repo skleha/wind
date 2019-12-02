@@ -81,13 +81,13 @@ function createDisplayData(allWindData) {
   return displayData;
 }
 
-function returnDataSetName(displayName) {
+function getDataSetName(displayName) {
   const translator = { 
-    "Yesterday" : dayMinus1,
-    "Two Days Ago" : dayMinus2,
-    "Three Days Ago" : dayMinus3,
-    "Four Days Ago" : dayMinus4,
-    "Five Days Ago" : dayMinus5,
+    "Yesterday" : "dayMinus1",
+    "Two Days Ago" : "dayMinus2",
+    // "Three Days Ago" : dayMinus3,
+    // "Four Days Ago" : dayMinus4,
+    // "Five Days Ago" : dayMinus5,
   }
 
   return translator[displayName];
@@ -169,7 +169,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
     .style("text-anchor", "middle")
     .text("speed in miles per hour (mph)");
 
-  let allData = ["dayMinus0", "dayMinus1"];
+  let allData = ["Yesterday", "Two Days Ago"];
 
   d3.select("#selectButton")
     .selectAll('myOptions')
