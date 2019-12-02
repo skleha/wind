@@ -119,7 +119,28 @@ function getAvgSetName(displayName) {
   return displayNameToAvgName[displayName];
 }
 
+function niceDate(jsDateObject) {
+  
+  const monthIndex = {
+    0: "January",
+    1: "February",
+    2: "March",
+    3: "April",
+    4: "May",
+    5: "June",
+    6: "July",
+    7: "August",
+    8: "September",
+    9: "October",
+    10: "November",
+    11: "December"
+  }
 
+  const month = monthIndex[jsDateObject.getMonth()];
+  const day = jsDateObject.getDate();
+  const year = jsDateObject.getFullYear();
+  return `${month} ${day}, ${year}`;
+}
 
 
 
@@ -128,10 +149,9 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
 
   const allWindData = parseAllWindData(text);
   const displayData = createDisplayData(allWindData);
-  console.log(displayData);
 
   let margin = { top: 10, right: 30, bottom: 48, left: 55 },
-    width = 800 - margin.left - margin.right,
+    width = 900 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
   let svg = d3.select("#my_dataviz")
@@ -141,7 +161,8 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
     .append("g")
     .attr("transform",
       "translate(" + margin.left + "," + margin.top + ")")
-
+    
+    
 
   let x = d3.scaleLinear()
     .domain([8, 19])
@@ -155,7 +176,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
 
 
   let y = d3.scaleLinear()
-    .domain([0, 30])
+    .domain([0, 35])
     .range([height, 0])
 
   let yAxisCall = d3.axisLeft(y);
@@ -229,8 +250,10 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
     .attr("value", function (d) { return d; })
 
   function update(selectedData) {
+    
     const dataSetName = getDataSetName(selectedData);
     const dataFilter = displayData[dataSetName];
+
     const avgSetName = getAvgSetName(selectedData);
     const avgDataFilter = displayData[avgSetName];
 
