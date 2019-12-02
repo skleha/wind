@@ -19,7 +19,7 @@ function parseAllWindData(text) {
       parseInt(line[0]),      // year
       parseInt(line[1] - 1),  // month index
       parseInt(line[2]),      // day
-      parseInt(line[3] - 8),  // UTC hour converted to local
+      parseInt(line[3] - 8),  // UTC hour converted to PST
       parseInt(line[4])       // minute
     )
 
@@ -65,6 +65,7 @@ function createDisplayData(allWindData) {
 
   return displayData;
 }
+
 
 function getDataSetName(displayName) {
   const translator = { 
@@ -139,6 +140,9 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
       .attr("r", 4)
       .style("fill", "#4287f5")
 
+      
+  // Axis labels
+
   svg.append("text")
     .attr("transform",
       "translate(" + (width / 2) + " ," +
@@ -153,6 +157,9 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
     .attr("dy", "1em")
     .style("text-anchor", "middle")
     .text("speed in miles per hour (mph)");
+
+
+  // Logic for drop down menu
 
   let allData = ["Yesterday", "Two Days Ago", "Three Days Ago", "Four Days Ago", "Five Days Ago"];
 

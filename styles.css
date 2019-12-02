@@ -1,11 +1,23 @@
 
-h1 {
-  padding: 20px 0px 0px 20px;
-  height: 60px;
-  font-size: 40px;
-  margin-left: auto;
-  margin-right: auto;
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 20px;
+  height: 80px;
+  padding: 20px;
+  border-bottom: 1px solid lightgray;
+
 }
+
+h1 {
+  font-size: 40px;
+}
+
+h2 {
+
+}
+
 
 .console-and-data {
   display: flex;
@@ -15,11 +27,17 @@ h1 {
   padding: 15px;
   background-color: lightgray;
   width: 20%;
-  border-radius: 0px 10px 10px 0px;
+  border-radius: 0px 0px 10px 0px;
 }
+
+.console-title {
+  border-bottom: 1px solid darkgray;
+}
+
 
 .graph {
   padding: 10px;
+  margin-top: 20px;
   margin-left: 10px;
   width: 75%;
 }
