@@ -6,7 +6,10 @@ function parseAllWindData(text) {
   const lines = text.split(`\n`);
 
   for (let i = 2; i < 700; i++) {
-    const line = lines[i].split(" ");
+    let line = lines[i]
+    line = line.replace(/  +/g, ' ');
+    line = line.split(" ");    
+
     const windSpeed = line[7];
     if (windSpeed === "") {
       console.log(line);
@@ -79,55 +82,11 @@ function createDisplayData(allWindData) {
 }
 
 
-d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/realtime2/46026.txt", function (error, text) {
+d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/realtime2/FTPC1.txt", function (error, text) {
   if (error) throw error;
 
   const allWindData = parseAllWindData(text);
-  // const displayData = createDisplayData(allWindData);
-
-  const today = new Date();
-  today.setHours(today.getHours() - 8);
-
-  const startMinus0 = new Date(
-    today.getFullYear(),
-    today.getMonth(),
-    today.getDate() - 1,
-    9) // Graph x-axis always starts at 9am
-
-  const endMinus0 = new Date(
-    today.getFullYear(),
-    today.getMonth(),
-    today.getDate() - 1,
-    18) // Graphy x-axis always finishes at 6pm
-
-  const startMinus1 = new Date(
-    today.getFullYear(),
-    today.getMonth(),
-    today.getDate() - 2,
-    9) // Graph x-axis always starts at 9am
-
-  const endMinus1 = new Date(
-    today.getFullYear(),
-    today.getMonth(),
-    today.getDate() - 2,
-    18) // Graphy x-axis always finishes at 6pm
-
-  dayMinus0 = allWindData.filter(ele => {
-    return ele.date.getTime() > startMinus0.getTime() &&
-      ele.date.getTime() < endMinus0.getTime();
-  })
-
-  dayMinus1 = allWindData.filter(ele => {
-    return ele.date.getTime() > startMinus1.getTime() &&
-      ele.date.getTime() < endMinus1.getTime();
-  })
-
-  const displayData = {
-    dayMinus0,
-    dayMinus1
-  };
-
-
+  const displayData = createDisplayData(allWindData);
 
   let margin = { top: 10, right: 30, bottom: 48, left: 55 },
     width = 800 - margin.left - margin.right,
@@ -153,7 +112,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
     .call(xAxisCall)
 
   let y = d3.scaleLinear()
-    .domain([0, 25])
+    .domain([0, 30])
     .range([height, 0])
 
   let yAxisCall = d3.axisLeft(y);
