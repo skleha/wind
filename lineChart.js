@@ -30,55 +30,67 @@ function parseAllWindData(text) {
     });
   }
 
-
   return allWindData;
 }
+
 
 function createDisplayData(allWindData) {
   
   const today = new Date();
   today.setHours(today.getHours() - 8);
 
-  const startMinus0 = new Date(
-    today.getFullYear(),
-    today.getMonth(),
-    today.getDate() - 1,
-    9) // Graph x-axis always starts at 9am
-
-  const endMinus0 = new Date(
-    today.getFullYear(),
-    today.getMonth(),
-    today.getDate() - 1,
-    18) // Graphy x-axis always finishes at 6pm
-
   const startMinus1 = new Date(
     today.getFullYear(),
     today.getMonth(),
-    today.getDate() - 2,
+    today.getDate() - 1,
     9) // Graph x-axis always starts at 9am
 
   const endMinus1 = new Date(
     today.getFullYear(),
     today.getMonth(),
-    today.getDate() - 2,
+    today.getDate() - 1,
     18) // Graphy x-axis always finishes at 6pm
 
-  dayMinus0 = allWindData.filter(ele => {
-    return ele.date.getTime() > startMinus0.getTime() &&
-      ele.date.getTime() < endMinus0.getTime();
-  })
+  const startMinus2 = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate() - 2,
+    9) // Graph x-axis always starts at 9am
+
+  const endMinus2 = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate() - 2,
+    18) // Graphy x-axis always finishes at 6pm
 
   dayMinus1 = allWindData.filter(ele => {
     return ele.date.getTime() > startMinus1.getTime() &&
       ele.date.getTime() < endMinus1.getTime();
   })
 
+  dayMinus2 = allWindData.filter(ele => {
+    return ele.date.getTime() > startMinus2.getTime() &&
+      ele.date.getTime() < endMinus2.getTime();
+  })
+
   const displayData = {
-    dayMinus0,
-    dayMinus1
+    dayMinus1,
+    dayMinus2,
   };
 
   return displayData;
+}
+
+function returnDataSetName(displayName) {
+  const translator = { 
+    "Yesterday" : dayMinus1,
+    "Two Days Ago" : dayMinus2,
+    "Three Days Ago" : dayMinus3,
+    "Four Days Ago" : dayMinus4,
+    "Five Days Ago" : dayMinus5,
+  }
+
+  return translator[displayName];
 }
 
 
@@ -111,6 +123,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
     .attr("transform", "translate(0," + height + ")")
     .call(xAxisCall)
 
+
   let y = d3.scaleLinear()
     .domain([0, 30])
     .range([height, 0])
@@ -123,7 +136,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
   let line = svg
     .append('g')
     .append("path")
-      .datum(displayData.dayMinus0)
+      .datum(displayData.dayMinus1)
       .attr("d", d3.line()
         .x((d) => { return x(d.hourValue) })
         .y((d) => { return y(d.value) }))
@@ -133,7 +146,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
   
   let dot = svg
     .selectAll("circle")
-    .data(displayData.dayMinus0)
+    .data(displayData.dayMinus1)
     .enter()
     .append("circle")
       .attr("cx", d => { return x(d.hourValue) })
@@ -167,8 +180,8 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
     .attr("value", function (d) { return d; })
 
   function update(selectedData) {
-
-    let dataFilter = displayData[selectedData];
+    const dataSetName = getDataSetName(selectedData);
+    let dataFilter = displayData[dataSetName];
 
     line
       .datum(dataFilter)
