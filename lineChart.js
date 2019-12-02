@@ -107,6 +107,21 @@ function getDataSetName(displayName) {
   return displayNameToDataName[displayName];
 }
 
+function getAvgSetName(displayName) {
+  const displayNameToAvgName = {
+    "Yesterday": "avgDayMinus1",
+    "Two Days Ago": "avgDayMinus2",
+    "Three Days Ago": "avgDayMinus3",
+    "Four Days Ago": "avgDayMinus4",
+    "Five Days Ago": "avgDayMinus5",
+  }
+
+  return displayNameToAvgName[displayName];
+}
+
+
+
+
 
 d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/realtime2/FTPC1.txt", function (error, text) {
   if (error) throw error;
@@ -159,7 +174,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
       .style("fill", "none")
       .style("stroke-width", 3)
   
-  svg
+  let average = svg
     .append("g")
     .append("path")
     .datum(displayData.avgDayMinus1)
@@ -215,7 +230,9 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
 
   function update(selectedData) {
     const dataSetName = getDataSetName(selectedData);
-    let dataFilter = displayData[dataSetName];
+    const dataFilter = displayData[dataSetName];
+    const avgSetName = getAvgSetName(selectedData);
+    const avgDataFilter = displayData[avgSetName];
 
     line
       .datum(dataFilter)
@@ -233,6 +250,15 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
         .attr("cx", d => { return x(d.hourValue) })
         .attr("cy", d => { return y(d.value) })
 
+    average
+      .datum(avgDataFilter)
+      .transition()
+      .duration(1000)
+      .attr("d", d3.line()
+        .curve(d3.curveBasis)
+        .x(function (d) { return x(d.hourValue) })
+        .y(function (d) { return y(d.value) })
+      )
   }
 
   d3.select("#selectButton").on("change", function(d) {
