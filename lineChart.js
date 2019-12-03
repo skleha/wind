@@ -119,7 +119,7 @@ function getAvgSetName(displayName) {
   return displayNameToAvgName[displayName];
 }
 
-function niceDate(jsDateObject) {
+function niceFormatDate(jsDateObject) {
   
   const monthIndex = {
     0: "January",
@@ -133,7 +133,7 @@ function niceDate(jsDateObject) {
     8: "September",
     9: "October",
     10: "November",
-    11: "December"
+    11: "December",
   }
 
   const month = monthIndex[jsDateObject.getMonth()];
@@ -142,6 +142,27 @@ function niceDate(jsDateObject) {
   return `${month} ${day}, ${year}`;
 }
 
+function getDateString(displayName) {
+  const displayNameToDate = {};
+  const today = new Date();
+  today.setHours(today.getHours() - 8);
+  const displayNames = [
+    "Yesterday",
+    "Two Days Ago",
+    "Three Days Ago",
+    "Four Days Ago",
+    "Five Days Ago"
+  ];
+
+  i = 0;
+  while (i < displayNames.length) {
+    today.setDate(today.getDate() - 1)
+    displayNameToDate[displayNames[i]] = niceFormatDate(today);
+    i++;
+  }
+
+  return displayNameToDate[displayName];
+}
 
 
 d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/realtime2/PXOC1.txt", function (error, text) {
@@ -163,7 +184,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
     .attr("transform",
       "translate(" + margin.left + "," + margin.top + ")")
     
-    
+  // Axes
 
   let x = d3.scaleLinear()
     .domain([8, 19])
@@ -174,7 +195,6 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
     .attr("class", "x-axis")
     .attr("transform", "translate(0," + height + ")")
     .call(xAxisCall)
-
 
   let y = d3.scaleLinear()
     .domain([0, 45])
@@ -208,7 +228,6 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
     .style("fill", "none")
     .style("stroke-width", 2)
 
-
   let dot = svg
     .selectAll("circle")
     .data(displayData.dayMinus1)
@@ -222,12 +241,12 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
 
   // Axis labels
 
-  svg.append("text")
+  let graphTitle = svg.append("text")
     .attr("transform",
       "translate(" + (width / 2) + " ," +
       (5) + ")")
     .style("text-anchor", "middle")
-    .text("header");
+    .text(getDateString("Yesterday"));
 
   svg.append("text")
     .attr("transform",
@@ -245,7 +264,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
     .text("speed in miles per hour (mph)");
 
 
-  // Logic for drop down menu
+  // Drop down menu
 
   let allData = ["Yesterday", "Two Days Ago", "Three Days Ago", "Four Days Ago", "Five Days Ago"];
 
@@ -254,8 +273,10 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
       .data(allData)
     .enter()
       .append('option')
-    .text(function (d) {return d; })
+    .text(function (d) { return d; })
     .attr("value", function (d) { return d; })
+
+  // Update display based on drop down
 
   function update(selectedData) {
     
@@ -271,15 +292,15 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
         .y(function (d) { return y(d.value) })
       )
   
-    const avgSetName = getAvgSetName(selectedData);
-    const avgDataFilter = displayData[avgSetName];
-
     dot
       .data(dataFilter)
       .transition()
       .duration(1000)
         .attr("cx", d => { return x(d.hourValue) })
         .attr("cy", d => { return y(d.value) })
+
+    const avgSetName = getAvgSetName(selectedData);
+    const avgDataFilter = displayData[avgSetName];
 
     average
       .datum(avgDataFilter)
@@ -290,7 +311,13 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
         .x(function (d) { return x(d.hourValue) })
         .y(function (d) { return y(d.value) })
       )
-   }
+
+    const dateString = getDateString(selectedData);
+
+    graphTitle
+      .text(dateString)
+
+  }
 
   d3.select("#selectButton").on("change", function(d) {
     let selectedOption = d3.select(this).property("value")
