@@ -66,7 +66,7 @@ function createDisplayData(allWindData) {
   const today = new Date();
   today.setHours(today.getHours() - 8);
 
-  for (var i = 1; i <= 5; i++) {
+  for (var i = 0; i <= 5; i++) {
 
     let begin = new Date(
       today.getFullYear(),
@@ -205,7 +205,18 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
     .attr("class", "y-axis")
     .call(yAxisCall);
 
-  let line = svg
+  let currentDay = svg
+    .append('g')
+    .append('path')
+      .datum(displayData.dayMinus0)
+      .attr("d", d3.line()
+        .x((d) => { return x(d.hourValue) })
+        .y((d) => { return y(d.value) }))
+      .attr("stroke", "#000000")
+      .style("fill", "none")
+      .style("stroke-width", 3)
+
+  let priorDay = svg
     .append('g')
     .append("path")
       .datum(displayData.dayMinus1)
@@ -224,7 +235,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
         .curve(d3.curveBasis)
         .x((d) => { return x(d.hourValue) })
         .y((d) => { return y(d.value) }))
-    .attr("stroke", "#eb4034")
+    .attr("stroke", "#4287f5")
     .style("fill", "none")
     .style("stroke-width", 2)
 
@@ -283,7 +294,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
     const dataSetName = getDataSetName(selectedData);
     const dataFilter = displayData[dataSetName];
 
-    line
+    priorDay
       .datum(dataFilter)
       .transition()
       .duration(1000)

@@ -17,12 +17,30 @@
     <h2>Fort Point, San Francisco, CA</h2>
   </div>
 
-  <div class="console-and-data">
+  <div class="console-and-graph">
+    
     <div class="console">
-      <h3 class="console-title">Select a Day:</h3>
+      
+      <h3 class="console-subtitle">Select a Previous Day:</h3>
       <select id="selectButton"></select>
-    
-    
+      
+      <h3 class="console-subtitle">Display Selected Data:</h3>
+      <div class="console-data-panel">
+
+        <input type="checkbox" name="myCheckBox">
+        <label class="checkbox-label" for="myCheckBox">Today's Windspeed</label>
+        
+        <input type="checkbox" name="myCheckBox">
+        <label class="checkbox-label" for="myCheckBox">Today's Windspeed Average</label>
+        
+        <input type="checkbox" name="myCheckBox">
+        <label class="checkbox-label" for="myCheckBox">Max Windspeed</label>
+        
+        <input type="checkbox" name="myCheckBox2">
+        <label class="checkbox-label" for="myCheckBox2">Min Windspeed</label>
+      
+      </div>
+
     </div>
     <div class="graph" id="my_dataviz"></div>
   </div>

@@ -19,7 +19,7 @@ h2 {
 }
 
 
-.console-and-data {
+.console-and-graph {
   display: flex;
 }
 
@@ -30,8 +30,21 @@ h2 {
   border-radius: 0px 0px 10px 0px;
 }
 
-.console-title {
+.console-subtitle {
   border-bottom: 1px solid darkgray;
+  margin-bottom: 10px;
+}
+
+#selectButton {
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.console-data-panel {
+  display: grid;
+  grid-template-columns: 22px 200px;
+  grid-row-gap: 17px;
+  align-items: center;
 }
 
 
@@ -42,8 +55,7 @@ h2 {
   width: 80%;
 }
 
-#selectButton {
-  margin-top: 10px;
+.checkbox-label {
   font-size: 14px;
 }
 
