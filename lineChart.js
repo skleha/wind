@@ -319,6 +319,8 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
 
   }
 
+  // Drop down event handler
+
   d3.select("#selectButton").on("change", function(d) {
     let selectedOption = d3.select(this).property("value")
     update(selectedOption)
