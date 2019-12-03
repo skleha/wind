@@ -225,9 +225,16 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
   svg.append("text")
     .attr("transform",
       "translate(" + (width / 2) + " ," +
+      (5) + ")")
+    .style("text-anchor", "middle")
+    .text("header");
+
+  svg.append("text")
+    .attr("transform",
+      "translate(" + (width / 2) + " ," +
       (height + margin.top + 30) + ")")
     .style("text-anchor", "middle")
-    .text("time (24h)");
+    .text("time of day (24h)");
 
   svg.append("text")
     .attr("transform", "rotate(-90)")
