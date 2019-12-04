@@ -287,7 +287,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
 
   // Update display based on drop down
 
-  function update(selectedData) {
+  function dropdownUpdate(selectedData) {
     
     const dataSetName = getDataSetName(selectedData);
     const dataFilter = displayData[dataSetName];
@@ -333,7 +333,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
 
   d3.select("#selectButton").on("change", function(d) {
     let selectedOption = d3.select(this).property("value");
-    update(selectedOption);
+    dropdownUpdate(selectedOption);
   })
 
   const checkboxData = [currentDay, currentAvg, comparisonDay, comparisonAvg];
