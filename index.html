@@ -24,34 +24,32 @@
       <h3 class="console-subtitle">Current Day:</h3>
         
         <div class="console-data-panel">
-          <input type="checkbox" class="checkboxCurrent" value=0 checked>
+          <input type="checkbox" class="checkbox" value=0 checked>
           <label class="checkbox-label" for="myCheckBox">Windspeed</label>
           
-          <input type="checkbox" class="checkboxCurrent" value=1>
+          <input type="checkbox" class="checkbox" value=1>
           <label class="checkbox-label" for="myCheckBox">Average Windspeed</label>
         </div>
       
       <h3 class="console-subtitle compare">Comparative Day:</h3>
 
       <div class="console-data-panel">
-        <input type="checkbox" class="checkboxCompare" value=0 checked>
+      
+        <input type="checkbox" class="checkbox" value=2 checked>
         <label class="checkbox-label" for="myCheckBox">Show Previous Day</label>
       
-      <label for="compare-day"> </label>
-      <select id="selectButton" name="compare-day">
-        <option value="null" selected disabled>Select Day</option> 
-        <option value="Yesterday">Yesterday</option>
-        <option value="Two Days Ago">Two Days Ago</option>
-        <option value="Three Days Ago">Three Days Ago</option>
-        <option value="Four Days Ago">Four Days Ago</option>
-        <option value="Five Days Ago">Five Days Ago</option>
-      </select>
+        <label for="compare-day"></label>
+        <select id="selectButton" name="compare-day">
+          <option value="Yesterday">Yesterday</option>
+          <option value="Two Days Ago">Two Days Ago</option>
+          <option value="Three Days Ago">Three Days Ago</option>
+          <option value="Four Days Ago">Four Days Ago</option>
+          <option value="Five Days Ago">Five Days Ago</option>
+        </select>
           
-        <input type="checkbox" class="checkboxCompare" value=1>
-        <label class="checkbox-label" for="myCheckBox">Average</label>
+        <input type="checkbox" class="checkbox" value=3>
+        <label class="checkbox-label" for="myCheckBox">Average Windspeed</label>
         
-        <input type="checkbox" class="checkboxCompare" value=2>
-        <label class="checkbox-label" for="myCheckBox">Max / Min</label>
       </div>
       
     </div>

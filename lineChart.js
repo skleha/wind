@@ -215,7 +215,19 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
       .style("fill", "none")
       .style("stroke-width", 3)
 
-  let priorDay = svg
+  let currentAvg = svg
+    .append("g")
+    .append("path")
+    .datum(displayData.avgDayMinus0)
+    .attr("d", d3.line()
+      .curve(d3.curveBasis)
+      .x((d) => { return x(d.hourValue) })
+      .y((d) => { return y(d.value) }))
+    .attr("stroke", "#000000")
+    .style("fill", "none")
+    .style("stroke-width", 2)
+
+  let comparisonDay = svg
     .append("g")
     .append("path")
       .datum(displayData.dayMinus1)
@@ -226,7 +238,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
       .style("fill", "none")
       .style("stroke-width", 3)
   
-  let average = svg
+  let comparisonAvg = svg
     .append("g")
     .append("path")
     .datum(displayData.avgDayMinus1)
@@ -238,7 +250,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
     .style("fill", "none")
     .style("stroke-width", 2)
 
-  let dot = svg
+  let comparisonPoint = svg
     .selectAll("circle")
     .data(displayData.dayMinus1)
     .enter()
@@ -273,19 +285,6 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
     .style("text-anchor", "middle")
     .text("speed in miles per hour (mph)");
 
-
-  // Drop down menu
-
-  let allData = ["Yesterday", "Two Days Ago", "Three Days Ago", "Four Days Ago", "Five Days Ago"];
-
-  d3.select("#selectButton")
-    .selectAll('myOptions')
-      .data(allData)
-    .enter()
-      .append('option')
-    .text(function (d) { return d; })
-    .attr("value", function (d) { return d; })
-
   // Update display based on drop down
 
   function update(selectedData) {
@@ -293,7 +292,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
     const dataSetName = getDataSetName(selectedData);
     const dataFilter = displayData[dataSetName];
 
-    priorDay
+    comparisonDay
       .datum(dataFilter)
       .transition()
       .duration(1000)
@@ -302,17 +301,18 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
         .y(function (d) { return y(d.value) })
       )
   
-    dot
+    comparisonPoint
       .data(dataFilter)
       .transition()
       .duration(1000)
         .attr("cx", d => { return x(d.hourValue) })
         .attr("cy", d => { return y(d.value) })
 
+
     const avgSetName = getAvgSetName(selectedData);
     const avgDataFilter = displayData[avgSetName];
 
-    average
+    comparisonAvg
       .datum(avgDataFilter)
       .transition()
       .duration(1000)
@@ -336,32 +336,45 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
     update(selectedOption);
   })
 
+  const checkboxData = [currentDay, currentAvg, comparisonDay, comparisonAvg];
 
 
-  const checkboxData = [average, currentDay];
-
-
-  // function checkboxUpdate() {
+  function checkboxUpdate() {
     
-  //   d3.selectAll(".checkbox").each(function(d) {
-  //     cb = d3.select(this);
-  //     idx = cb.property("value");
+    d3.selectAll(".checkbox").each(function(d) {
+      cb = d3.select(this);
+      idx = cb.property("value");
 
-  //     if (cb.property("checked")) {
-  //       checkboxData[idx]
-  //         .transition()
-  //         .duration(1000)
-  //         .style("opacity", 1)
-  //     } else {
-  //       checkboxData[idx]
-  //         .transition()
-  //         .duration(1000)
-  //         .style("opacity", 0)
-  //     }
-  //   })
-  // }
+      if (cb.property("checked")) {
+        checkboxData[idx]
+          .transition()
+          .duration(750)
+          .style("opacity", 1)
+        
+        if (idx === "2") {
+          svg.selectAll("circle")
+            .transition()
+            .duration(750)
+            .style("opacity", 1)          
+        }
 
-  // d3.selectAll(".checkbox").on("change", checkboxUpdate);
-  // checkboxUpdate();
+      } else {
+        checkboxData[idx]
+          .transition()
+          .duration(750)
+          .style("opacity", 0)
+          
+        if (idx === "2") {
+          svg.selectAll("circle")
+            .transition()
+            .duration(750)
+            .style("opacity", 0)
+        }  
+      }
+    })
+  }
+
+  d3.selectAll(".checkbox").on("change", checkboxUpdate);
+  checkboxUpdate();
 
 });
