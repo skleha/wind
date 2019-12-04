@@ -206,8 +206,8 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
     .call(yAxisCall);
 
   let currentDay = svg
-    .append('g')
-    .append('path')
+    .append("g")
+    .append("path")
       .datum(displayData.dayMinus0)
       .attr("d", d3.line()
         .x((d) => { return x(d.hourValue) })
@@ -217,7 +217,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
       .style("stroke-width", 3)
 
   let priorDay = svg
-    .append('g')
+    .append("g")
     .append("path")
       .datum(displayData.dayMinus1)
       .attr("d", d3.line()
@@ -336,5 +336,23 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
     let selectedOption = d3.select(this).property("value")
     update(selectedOption)
   })
+
+  
+  function checkboxUpdate() {
+    debugger;
+    d3.selectAll(".checkbox").each(function(d) {
+      cb = d3.select(this);
+      element = cb.property("value");
+
+      if (cb.property("checked")) {
+        element.transition().duration(1000).style("opacity", 1)
+      } else {
+        element.transition().duration(1000).style("opacity", 0)
+      }
+    })
+  }
+
+  d3.selectAll(".checkbox").on("change", checkboxUpdate);
+  checkboxUpdate();
 
 });
