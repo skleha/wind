@@ -377,4 +377,44 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
   d3.selectAll(".checkbox").on("change", checkboxUpdate);
   checkboxUpdate();
 
+  
+  function animateComparisonAvg(idx) {
+
+    const avgDataset = [
+      avgDayMinus1,
+      avgDayMinus2,
+      avgDayMinus3,
+      avgDayMinus4,
+      avgDayMinus5
+    ]
+
+    comparisonAvg
+      .datum(avgDataset[idx])
+      .transition()
+      .duration(1000)
+      .attr("d", d3.line()
+        .curve(d3.curveBasis)
+        .x(function (d) { return x(d.hourValue) })
+        .y(function (d) { return y(d.value) })
+      )
+
+    const dateString = getDateString(selectedData);
+
+    graphTitle
+      .text(dateString)
+  }
+
+  d3.select("#animateButton").on("click", () => {
+    let i = 0;
+    let myInterval = setInterval(() => {
+      animateComparisonAvg(i);
+      i++
+      if (i === 4)  {
+        clearInterval(myInterval);
+      }
+    }, 1000);
+
+
+  });
+
 });
