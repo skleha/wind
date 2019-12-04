@@ -12,8 +12,8 @@ function parseAllWindData(text) {
 
     const windSpeed = line[7];
     if (windSpeed === "") {
-      console.log(line);
-      console.log(windSpeed);
+      // console.log(line);
+      // console.log(windSpeed);
     }
     let windDate = new Date(
       parseInt(line[0]),      // year
@@ -170,7 +170,6 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
 
   const allWindData = parseAllWindData(text);
   const displayData = createDisplayData(allWindData);
-  console.log(displayData);
 
   let margin = { top: 10, right: 30, bottom: 48, left: 55 },
     width = 900 - margin.left - margin.right,
@@ -333,26 +332,36 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
   // Drop down event handler
 
   d3.select("#selectButton").on("change", function(d) {
-    let selectedOption = d3.select(this).property("value")
-    update(selectedOption)
+    let selectedOption = d3.select(this).property("value");
+    update(selectedOption);
   })
 
-  
-  function checkboxUpdate() {
-    debugger;
-    d3.selectAll(".checkbox").each(function(d) {
-      cb = d3.select(this);
-      element = cb.property("value");
 
-      if (cb.property("checked")) {
-        element.transition().duration(1000).style("opacity", 1)
-      } else {
-        element.transition().duration(1000).style("opacity", 0)
-      }
-    })
-  }
 
-  d3.selectAll(".checkbox").on("change", checkboxUpdate);
-  checkboxUpdate();
+  const checkboxData = [average, currentDay];
+
+
+  // function checkboxUpdate() {
+    
+  //   d3.selectAll(".checkbox").each(function(d) {
+  //     cb = d3.select(this);
+  //     idx = cb.property("value");
+
+  //     if (cb.property("checked")) {
+  //       checkboxData[idx]
+  //         .transition()
+  //         .duration(1000)
+  //         .style("opacity", 1)
+  //     } else {
+  //       checkboxData[idx]
+  //         .transition()
+  //         .duration(1000)
+  //         .style("opacity", 0)
+  //     }
+  //   })
+  // }
+
+  // d3.selectAll(".checkbox").on("change", checkboxUpdate);
+  // checkboxUpdate();
 
 });

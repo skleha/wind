@@ -35,16 +35,28 @@ h2 {
   margin-bottom: 10px;
 }
 
+.console-subtitle.compare {
+  margin-top: 20px;
+}
+
+.select-label {
+  font-size: 14px;
+}
+
 #selectButton {
-  margin-bottom: 15px;
+  margin-left: 5px;
   font-size: 14px;
 }
 
 .console-data-panel {
   display: grid;
   grid-template-columns: 22px 200px;
-  grid-row-gap: 17px;
+  grid-row-gap: 10px;
   align-items: center;
+}
+
+.checkbox-label {
+  font-size: 14px;
 }
 
 
@@ -55,7 +67,4 @@ h2 {
   width: 80%;
 }
 
-.checkbox-label {
-  font-size: 14px;
-}
 
