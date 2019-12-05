@@ -377,19 +377,13 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
   d3.selectAll(".checkbox").on("change", checkboxUpdate);
   checkboxUpdate();
 
-  
-  function animateComparisonAvg(idx) {
 
-    const avgDataset = [
-      avgDayMinus1,
-      avgDayMinus2,
-      avgDayMinus3,
-      avgDayMinus4,
-      avgDayMinus5
-    ]
+  function animateComparisonAvg(idx) {
+    
+    const currentDisplay = displayData[`avgDayMinus${idx + 1}`]
 
     comparisonAvg
-      .datum(avgDataset[idx])
+      .datum(currentDisplay)
       .transition()
       .duration(1000)
       .attr("d", d3.line()
@@ -398,10 +392,6 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
         .y(function (d) { return y(d.value) })
       )
 
-    const dateString = getDateString(selectedData);
-
-    graphTitle
-      .text(dateString)
   }
 
   d3.select("#animateButton").on("click", () => {
@@ -409,7 +399,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
     let myInterval = setInterval(() => {
       animateComparisonAvg(i);
       i++
-      if (i === 4)  {
+      if (i === 5)  {
         clearInterval(myInterval);
       }
     }, 1000);
