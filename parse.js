@@ -10,11 +10,6 @@ function parseAllWindData(text) {
     line = line.replace(/  +/g, ' '); // extra spaces in data
     line = line.split(" ");
 
-    const windSpeed = line[7];
-    if (windSpeed === "") {
-      // console.log(line);
-      // console.log(windSpeed);
-    }
     let windDate = new Date(
       parseInt(line[0]),      // year
       parseInt(line[1] - 1),  // month index
@@ -23,10 +18,17 @@ function parseAllWindData(text) {
       parseInt(line[4])       // minute
     )
 
+    const hourDecimal = windDate.getHours() + windDate.getMinutes() / 60;
+    const windSpeed = parseFloat((line[7] * METERSPERSECONDCONVERTMPH).toFixed(2))
+
+    if (!(hourDecimal && windSpeed)) {
+      continue;
+    }
+
     allWindData.push({
       date: windDate,
-      hourValue: windDate.getHours() + windDate.getMinutes() / 60,
-      value: parseFloat((windSpeed * METERSPERSECONDCONVERTMPH).toFixed(2))
+      hourValue: hourDecimal,
+      value: windSpeed,
     });
   }
 
@@ -61,8 +63,8 @@ function averageData(oneDayData) {
 
 function createDisplayData(allWindData) {
   const displayData = {};
-  displayData[allWindData] = allWindData;
-  
+  displayData["allWindData"] = allWindData;
+
   const today = new Date();
   today.setHours(today.getHours() - 8);
 
