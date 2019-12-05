@@ -179,8 +179,8 @@ function getDateString(displayName) {
 d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/realtime2/46026.txt", function (error, text) {
   if (error) throw error;
 
-  const allWindData = parseAllWindData(text);
-  const displayData = createDisplayData(allWindData);
+  const parsedData = parseAllWindData(text);
+  const displayData = createDisplayData(parsedData);
 
   let margin = { top: 10, right: 30, bottom: 48, left: 55 },
     width = 900 - margin.left - margin.right,
@@ -271,6 +271,16 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
       .attr("r", 4)
       .style("fill", "#4287f5")
 
+  let allWindDataPoint = svg
+    .selectAll("circle")
+    .data(displayData.allWindData)
+    .enter()
+    .append("circle")
+      .attr("cx", d => { return x(d.hourValue) })
+      .attr("cy", d => { return y(d.value) })
+      .attr("r", 4)
+      .style("fill", "#bababa")
+
 
   // Axis labels
 
@@ -351,7 +361,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
   
   function checkboxUpdate() {
     
-    const checkboxDatasets = [currentDay, currentAvg, comparisonDay, comparisonAvg];
+    const checkboxDatasets = [currentDay, currentAvg, comparisonDay, comparisonAvg, allWindDataPoint];
     
     d3.selectAll(".checkbox").each(function(d) {
       let cb = d3.select(this);
@@ -372,7 +382,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
         }
 
       } else {
-        debugger
+        
         checkboxDatasets[idx]
           .transition()
           .duration(750)

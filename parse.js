@@ -61,6 +61,8 @@ function averageData(oneDayData) {
 
 function createDisplayData(allWindData) {
   const displayData = {};
+  displayData[allWindData] = allWindData;
+  
   const today = new Date();
   today.setHours(today.getHours() - 8);
 
