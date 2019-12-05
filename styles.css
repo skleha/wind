@@ -59,6 +59,13 @@ h2 {
   font-size: 14px;
 }
 
+.animate-button {
+  height: 30px;
+  font-size: 14px;
+  background-color: #0080ff;
+  color: white;
+  border-radius: 8px;
+}
 
 .graph {
   padding: 10px;
