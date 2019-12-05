@@ -59,8 +59,6 @@ function averageData(oneDayData) {
   return averageData;
 }
 
-
-
 function createDisplayData(allWindData) {
   const displayData = {};
   const today = new Date();
@@ -178,7 +176,7 @@ function getDateString(displayName) {
 }
 
 
-// d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/realtime2/46026.txt", function (error, text) {
+d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/realtime2/46026.txt", function (error, text) {
   if (error) throw error;
 
   const allWindData = parseAllWindData(text);
@@ -349,22 +347,24 @@ function getDateString(displayName) {
     dropdownUpdate(selectedOption);
   })
 
-  const checkboxData = [currentDay, currentAvg, comparisonDay, comparisonAvg];
-
-
+  
+  
   function checkboxUpdate() {
     
+    const checkboxDatasets = [currentDay, currentAvg, comparisonDay, comparisonAvg];
+    
     d3.selectAll(".checkbox").each(function(d) {
-      cb = d3.select(this);
-      idx = cb.property("value");
-
+      let cb = d3.select(this);
+      let idx = parseInt(cb.property("value"));
+      
       if (cb.property("checked")) {
-        checkboxData[idx]
+        
+        checkboxDatasets[idx]
           .transition()
           .duration(750)
           .style("opacity", 1)
         
-        if (idx === "2") {
+        if (idx === 2) {
           svg.selectAll("circle")
             .transition()
             .duration(750)
@@ -372,12 +372,13 @@ function getDateString(displayName) {
         }
 
       } else {
-        checkboxData[idx]
+        debugger
+        checkboxDatasets[idx]
           .transition()
           .duration(750)
           .style("opacity", 0)
-          
-        if (idx === "2") {
+
+        if (idx === 2) {
           svg.selectAll("circle")
             .transition()
             .duration(750)
@@ -414,6 +415,7 @@ function getDateString(displayName) {
   }
 
   d3.select("#animateButton").on("click", () => {
+    console.log("clicked");
     let i = 0;
     let myInterval = setInterval(() => {
       animateComparisonAvg(i);
@@ -422,8 +424,7 @@ function getDateString(displayName) {
         clearInterval(myInterval);
       }
     }, 1000);
-
-
   });
+
 
 });
