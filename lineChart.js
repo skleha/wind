@@ -178,7 +178,7 @@ function getDateString(displayName) {
 }
 
 
-// d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/realtime2/46026.txt", function (error, text) {
+d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/realtime2/46026.txt", function (error, text) {
   if (error) throw error;
 
   const allWindData = parseAllWindData(text);
