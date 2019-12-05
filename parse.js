@@ -35,7 +35,6 @@ function parseAllWindData(text) {
   return allWindData;
 }
 
-
 function averageData(oneDayData) {
   const averageData = [];
 
@@ -61,9 +60,20 @@ function averageData(oneDayData) {
   return averageData;
 }
 
+
+function filterAllWindByHour(allWindData) {
+  const filteredWindData = allWindData.filter(ele => {
+    const eleHour = ele.date.getHours();
+    return eleHour > 7 && eleHour < 19
+  })
+
+  return filteredWindData;
+}
+
+
 function createDisplayData(allWindData) {
   const displayData = {};
-  displayData["allWindData"] = allWindData;
+  displayData["allWindData"] = filterAllWindByHour(allWindData);
 
   const today = new Date();
   today.setHours(today.getHours() - 8);
