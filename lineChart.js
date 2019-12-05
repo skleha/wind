@@ -119,6 +119,19 @@ function getAvgSetName(displayName) {
   return displayNameToAvgName[displayName];
 }
 
+function getDisplayNameFromAvgSetName(avgSetName) {
+  const avgSetNameToDisplayName = {
+    "avgDayMinus1": "Yesterday",
+    "avgDayMinus2": "Two Days Ago", 
+    "avgDayMinus3": "Three Days Ago",
+    "avgDayMinus4": "Four Days Ago",
+    "avgDayMinus5": "Five Days Ago",
+  }
+
+  return avgSetNameToDisplayName[avgSetName]
+}
+
+
 function niceFormatDate(jsDateObject) {
   
   const monthIndex = {
@@ -223,7 +236,7 @@ function getDateString(displayName) {
       .curve(d3.curveBasis)
       .x((d) => { return x(d.hourValue) })
       .y((d) => { return y(d.value) }))
-    .attr("stroke", "#000000")
+    .attr("stroke", "#DC2828")
     .style("fill", "none")
     .style("stroke-width", 2)
 
@@ -379,8 +392,8 @@ function getDateString(displayName) {
 
 
   function animateComparisonAvg(idx) {
-    
-    const currentDisplay = displayData[`avgDayMinus${idx + 1}`]
+    const dataSet = `avgDayMinus${idx + 1}`
+    const currentDisplay = displayData[dataSet]
 
     comparisonAvg
       .datum(currentDisplay)
@@ -391,6 +404,12 @@ function getDateString(displayName) {
         .x(function (d) { return x(d.hourValue) })
         .y(function (d) { return y(d.value) })
       )
+
+    const displayName = getDisplayNameFromAvgSetName(dataSet);
+    const dateString = getDateString(displayName);
+    
+    graphTitle
+      .text(dateString)
 
   }
 
