@@ -119,6 +119,19 @@ function getAvgSetName(displayName) {
   return displayNameToAvgName[displayName];
 }
 
+function getDisplayNameFromAvgSetName(avgSetName) {
+  const avgSetNameToDisplayName = {
+    "avgDayMinus1": "Yesterday",
+    "avgDayMinus2": "Two Days Ago", 
+    "avgDayMinus3": "Three Days Ago",
+    "avgDayMinus4": "Four Days Ago",
+    "avgDayMinus5": "Five Days Ago",
+  }
+
+  return avgSetNameToDisplayName[avgSetName]
+}
+
+
 function niceFormatDate(jsDateObject) {
   
   const monthIndex = {
@@ -165,7 +178,7 @@ function getDateString(displayName) {
 }
 
 
-d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/realtime2/PXOC1.txt", function (error, text) {
+d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/realtime2/46026.txt", function (error, text) {
   if (error) throw error;
 
   const allWindData = parseAllWindData(text);
@@ -223,7 +236,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
       .curve(d3.curveBasis)
       .x((d) => { return x(d.hourValue) })
       .y((d) => { return y(d.value) }))
-    .attr("stroke", "#000000")
+    .attr("stroke", "#DC2828")
     .style("fill", "none")
     .style("stroke-width", 2)
 
@@ -287,7 +300,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
 
   // Update display based on drop down
 
-  function update(selectedData) {
+  function dropdownUpdate(selectedData) {
     
     const dataSetName = getDataSetName(selectedData);
     const dataFilter = displayData[dataSetName];
@@ -333,7 +346,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
 
   d3.select("#selectButton").on("change", function(d) {
     let selectedOption = d3.select(this).property("value");
-    update(selectedOption);
+    dropdownUpdate(selectedOption);
   })
 
   const checkboxData = [currentDay, currentAvg, comparisonDay, comparisonAvg];
@@ -376,5 +389,41 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
 
   d3.selectAll(".checkbox").on("change", checkboxUpdate);
   checkboxUpdate();
+
+
+  function animateComparisonAvg(idx) {
+    const dataSet = `avgDayMinus${idx + 1}`
+    const currentDisplay = displayData[dataSet]
+
+    comparisonAvg
+      .datum(currentDisplay)
+      .transition()
+      .duration(1000)
+      .attr("d", d3.line()
+        .curve(d3.curveBasis)
+        .x(function (d) { return x(d.hourValue) })
+        .y(function (d) { return y(d.value) })
+      )
+
+    const displayName = getDisplayNameFromAvgSetName(dataSet);
+    const dateString = getDateString(displayName);
+    
+    graphTitle
+      .text(dateString)
+
+  }
+
+  d3.select("#animateButton").on("click", () => {
+    let i = 0;
+    let myInterval = setInterval(() => {
+      animateComparisonAvg(i);
+      i++
+      if (i === 5)  {
+        clearInterval(myInterval);
+      }
+    }, 1000);
+
+
+  });
 
 });

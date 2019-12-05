@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="reset.css">
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet">
 </head>
 <body> 
 
@@ -31,7 +32,7 @@
           <label class="checkbox-label" for="myCheckBox">Average Windspeed</label>
         </div>
       
-      <h3 class="console-subtitle compare">Comparative Day:</h3>
+      <h3 class="console-subtitle compare">Previous Days' Data:</h3>
 
       <div class="console-data-panel">
       
@@ -49,9 +50,14 @@
           
         <input type="checkbox" class="checkbox" value=3>
         <label class="checkbox-label" for="myCheckBox">Average Windspeed</label>
-        
-      </div>
       
+        <label for="animateButton"> </label>
+        <button id="animateButton" name="animateButton" class="animate-button">
+          Animate Average Windspeed
+        </button>
+
+      </div>
+
     </div>
 
       <div class="graph" id="my_dataviz"></div>
