@@ -429,7 +429,6 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
   }
 
   d3.select("#animateButton").on("click", () => {
-    console.log("clicked");
     let i = 0;
     let myInterval = setInterval(() => {
       animateComparisonAvg(i);
