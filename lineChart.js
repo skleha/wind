@@ -1,9 +1,10 @@
 
-d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/realtime2/46026.txt", function (error, text) {
+d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/realtime2/FTPC1.txt", function (error, text) {
   if (error) throw error;
   const parsedData = parseAllWindData(text);
   const displayData = createDisplayData(parsedData);
-  
+  console.log(displayData);
+
   let margin = { top: 10, right: 30, bottom: 48, left: 55 },
     width = 900 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
@@ -102,8 +103,9 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
     .append("circle")
       .attr("cx", d => { return x(d.hourValue) })
       .attr("cy", d => { return y(d.value) })
-      .attr("r", 2)
-      .style("fill", "#bababa")
+      .attr("r", 3)
+      .style("fill", "#636363")
+      .style("opacity", 0.1)
 
 
   // Axis labels
@@ -196,7 +198,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
         checkboxDatasets[idx]
           .transition()
           .duration(750)
-          .style("opacity", 1)
+          .style("opacity", .2)
         
         if (idx === 2) {
           svg.selectAll("circle")
