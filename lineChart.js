@@ -62,6 +62,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
     .attr("stroke", "#DC2828")
     .style("fill", "none")
     .style("stroke-width", 2)
+    .style("opacity", 0)
 
   let comparisonDay = svg
     .append("g")
@@ -74,6 +75,16 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
       .style("fill", "none")
       .style("stroke-width", 3)
   
+  let comparisonPoint = svg
+    .selectAll("circle")
+    .data(displayData.dayMinus1)
+    .enter()
+    .append("circle")
+    .attr("cx", d => { return x(d.hourValue) })
+    .attr("cy", d => { return y(d.value) })
+    .attr("r", 4)
+    .style("fill", "#4287f5")
+
   let comparisonAvg = svg
     .append("g")
     .append("path")
@@ -85,16 +96,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
     .attr("stroke", "#4287f5")
     .style("fill", "none")
     .style("stroke-width", 2)
-
-  let comparisonPoint = svg
-    .selectAll("circle")
-    .data(displayData.dayMinus1)
-    .enter()
-    .append("circle")
-      .attr("cx", d => { return x(d.hourValue) })
-      .attr("cy", d => { return y(d.value) })
-      .attr("r", 4)
-      .style("fill", "#4287f5")
+    .style("opacity", 0)
 
   let allWindDataPoint = svg
     .selectAll("circle")
@@ -105,7 +107,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
       .attr("cy", d => { return y(d.value) })
       .attr("r", 3)
       .style("fill", "#636363")
-      .style("opacity", 0.1)
+      .style("opacity", 0)
 
 
   // Axis labels
@@ -193,33 +195,68 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
       let cb = d3.select(this);
       let idx = parseInt(cb.property("value"));
       
-      if (cb.property("checked")) {
-        
-        checkboxDatasets[idx]
-          .transition()
-          .duration(750)
-          .style("opacity", .2)
-        
-        if (idx === 2) {
-          svg.selectAll("circle")
-            .transition()
-            .duration(750)
-            .style("opacity", 1)          
-        }
+      switch (idx) {
+        case 2: // comparisonDay AND its points          
+          if (cb.property("checked")) {
 
-      } else {
-        
-        checkboxDatasets[idx]
-          .transition()
-          .duration(750)
-          .style("opacity", 0)
+            checkboxDatasets[idx]
+              .transition()
+              .duration(750)
+              .style("opacity", 1)
 
-        if (idx === 2) {
-          svg.selectAll("circle")
-            .transition()
-            .duration(750)
-            .style("opacity", 0)
-        }  
+            svg.selectAll("circle")
+              .transition()
+              .duration(750)
+              .style("opacity", 1)   
+
+          } else {
+
+            checkboxDatasets[idx]
+              .transition()
+              .duration(750)
+              .style("opacity", 0)
+
+            svg.selectAll("circle")
+              .transition()
+              .duration(750)
+              .style("opacity", 0)   
+          }
+
+          break;
+
+        case 4:  // allWindData, rendered with lower transparency
+          if (cb.property("checked")) {
+
+            checkboxDatasets[idx]
+              .transition()
+              .duration(750)
+              .style("opacity", .33)
+
+          } else {
+
+            checkboxDatasets[idx]
+              .transition()
+              .duration(750)
+              .style("opacity", 0)
+          }
+
+          break;
+
+        default:
+          if (cb.property("checked")) {
+
+            checkboxDatasets[idx]
+              .transition()
+              .duration(750)
+              .style("opacity", 1)
+
+          } else {
+
+            checkboxDatasets[idx]
+              .transition()
+              .duration(750)
+              .style("opacity", 0)
+          }
       }
     })
   }
