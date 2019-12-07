@@ -32,12 +32,12 @@
           <label class="checkbox-label" for="myCheckBox">Average Windspeed</label>
         </div>
       
-      <h3 class="console-subtitle compare">Previous Days' Data:</h3>
+      <h3 class="console-subtitle not-first">Previous Day's Data:</h3>
 
       <div class="console-data-panel">
       
         <input type="checkbox" class="checkbox" value=2 checked>
-        <label class="checkbox-label" for="myCheckBox">Show Previous Day</label>
+        <label class="checkbox-label" for="myCheckBox">Show a Previous Day</label>
       
         <label for="compare-day"></label>
         <select id="selectButton" name="compare-day">
@@ -56,6 +56,13 @@
           Animate Average Windspeed
         </button>
 
+        
+      </div>
+      <h3 class="console-subtitle not-first">Bulk Data Display:</h3>
+      
+      <div class="console-data-panel">
+        <input type="checkbox" class="checkbox" value=4>
+        <label class="checkbox-label" for="myCheckBox">All Data Points</label>
       </div>
 
     </div>
@@ -65,6 +72,7 @@
   </div>
 
 
+  <script src="parse.js"></script>
   <script src="lineChart.js"></script>
 </body>
 </html>

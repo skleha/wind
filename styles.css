@@ -35,8 +35,8 @@ h2 {
   margin-bottom: 10px;
 }
 
-.console-subtitle.compare {
-  margin-top: 20px;
+.console-subtitle.not-first {
+  margin-top: 25px;
 }
 
 .select-label {
