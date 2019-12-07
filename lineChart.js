@@ -40,6 +40,17 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
 
   // Data
 
+  let allWindDataPoint = svg
+    .selectAll("circle")
+    .data(displayData.allWindData)
+    .enter()
+    .append("circle")
+    .attr("cx", d => { return x(d.hourValue) })
+    .attr("cy", d => { return y(d.value) })
+    .attr("r", 2.5)
+    .style("fill", "#636363")
+    .style("opacity", 0)
+
   let currentDay = svg
     .append("g")
     .append("path")
@@ -98,16 +109,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
     .style("stroke-width", 2)
     .style("opacity", 0)
 
-  let allWindDataPoint = svg
-    .selectAll("circle")
-    .data(displayData.allWindData)
-    .enter()
-    .append("circle")
-      .attr("cx", d => { return x(d.hourValue) })
-      .attr("cy", d => { return y(d.value) })
-      .attr("r", 3)
-      .style("fill", "#636363")
-      .style("opacity", 0)
+
 
 
   // Axis labels

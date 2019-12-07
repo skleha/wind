@@ -17,9 +17,11 @@ function parseAllWindData(text) {
       parseInt(line[3] - 8),  // UTC hour converted to PST
       parseInt(line[4])       // minute
     )
-
-    const hourDecimal = windDate.getHours() + windDate.getMinutes() / 60;
-    const windSpeed = parseFloat((line[7] * METERSPERSECONDCONVERTMPH).toFixed(2))
+    
+    const randomizer1 = parseFloat((Math.random() * 0.15).toFixed(2)) + .08;
+    const randomizer2 = parseFloat(Math.random().toFixed(2)) + -0.5;
+    const hourDecimal = windDate.getHours() + windDate.getMinutes() / 60 + randomizer1;
+    const windSpeed = parseFloat((line[7] * METERSPERSECONDCONVERTMPH).toFixed(2)) + randomizer2;
 
     if (!(hourDecimal && windSpeed)) {
       continue;
