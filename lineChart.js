@@ -176,7 +176,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
     const dateString = getDateString(selectedData);
 
     graphTitle
-      .text(dateString)
+      .text(`Comparison date ${dateString}`)
 
   }
 
