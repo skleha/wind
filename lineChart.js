@@ -5,8 +5,8 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
   const displayData = createDisplayData(parsedData);
   console.log(displayData);
 
-  let margin = { top: 10, right: 30, bottom: 48, left: 55 },
-    width = 900 - margin.left - margin.right,
+  let margin = { top: 10, right: 325, bottom: 48, left: 55 },
+    width = 1100 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
   let svg = d3.select("#my_dataviz")
@@ -87,7 +87,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
       .style("stroke-width", 3)
   
   let comparisonPoint = svg
-    .selectAll("circle")
+    .selectAll("compareCircle")
     .data(displayData.dayMinus1)
     .enter()
     .append("circle")
@@ -135,6 +135,23 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
     .style("text-anchor", "middle")
     .text("speed in miles per hour (mph)");
 
+  // Legend
+
+  const legendDotX = 750;
+  const legendLabelX = legendDotX + 20;
+
+  svg.append("circle").attr("cx", legendDotX).attr("cy", 100).attr("r", 6).style("fill", "#000000")
+  svg.append("circle").attr("cx", legendDotX).attr("cy", 130).attr("r", 6).style("fill", "#DC2828")
+  svg.append("circle").attr("cx", legendDotX).attr("cy", 160).attr("r", 6).style("fill", "#4287f5")
+  svg.append("circle").attr("cx", legendDotX).attr("cy", 190).attr("r", 6).style("fill", "#4287f5")
+  svg.append("circle").attr("cx", legendDotX).attr("cy", 220).attr("r", 6).style("fill", "#636363")
+
+  svg.append("text").attr("x", legendLabelX).attr("y", 100).text("Today's Windspeed").style("font-size", "15px").attr("alignment-baseline", "middle")
+  svg.append("text").attr("x", legendLabelX).attr("y", 130).text("Today's Windspeed Average").style("font-size", "15px").attr("alignment-baseline", "middle")
+  svg.append("text").attr("x", legendLabelX).attr("y", 160).text("Comparison Day Windspeed").style("font-size", "15px").attr("alignment-baseline", "middle")
+  svg.append("text").attr("x", legendLabelX).attr("y", 190).text("Comparison Day Windspeed Avg").style("font-size", "15px").attr("alignment-baseline", "middle")
+  svg.append("text").attr("x", legendLabelX).attr("y", 220).text("All Wind Data Points").style("font-size", "15px").attr("alignment-baseline", "middle")
+
   // Update display based on drop down
 
   function dropdownUpdate(selectedData) {
@@ -157,7 +174,6 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
       .duration(1000)
         .attr("cx", d => { return x(d.hourValue) })
         .attr("cy", d => { return y(d.value) })
-
 
     const avgSetName = getAvgSetName(selectedData);
     const avgDataFilter = displayData[avgSetName];
@@ -210,7 +226,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
               .duration(750)
               .style("opacity", 1)
             
-            svg.selectAll("circle")
+            svg.selectAll("compareCircle")
               .transition()
               .duration(750)
               .style("opacity", 1)   
@@ -227,7 +243,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
               .duration(750)
               .style("opacity", 0)
 
-            svg.selectAll("circle")
+            svg.selectAll("compareCircle")
               .transition()
               .duration(750)
               .style("opacity", 0)   
