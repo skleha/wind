@@ -13,15 +13,41 @@
 </head>
 <body> 
 
+  <div id="modal" class="modal">
+    <div id="modal-child" class="modal-child">
+      <p class="quote">"History doesn't repeat itself, but it often rhymes."</p>
+      <p class="quote byline">-Mark Twain</p> 
+      <p class="description" >While the origins of the above quote are cloudy, the meaning is quite clear,
+        and especially to sailors heading out to sea.  In the context of wind direction and strength,
+        the conditions for today are highly likely to "rhyme"
+        with those of yesterday.  In other words, if it was breezy yesterday, then it's likely to be breezy today.
+        This can be enormously helpful to a sailor selecting a safety gear for the day...it can
+        be just as helpful to anyone selecting a jacket for the day.  Toggle the controls on the left
+        for a different view of the data, all while trying to spot a parallel ("rhyme?") in the data.
+      </p>
+      <button id="close-button">close</button>
+
+    </div>
+  </div>
+
   <div class="header">
     <h1>Windspeed Over Time</h1>
-    <h2>Fort Point, San Francisco, CA</h2>
+    <h2 id="about-button">About the App</h2>
   </div>
 
   <div class="console-and-graph">
     
     <div class="console">
+
       
+      <h3 class="console-subtitle">Location:</h3>
+        <div class="console-data-panel">
+          <label></label>
+          <div>Fort Point, San Francisco</div>
+
+        </div>
+
+
       <h3 class="console-subtitle">Current Day:</h3>
         
         <div class="console-data-panel">
@@ -32,7 +58,7 @@
           <label class="checkbox-label" for="myCheckBox">Average Windspeed</label>
         </div>
       
-      <h3 class="console-subtitle not-first">Previous Day's Data:</h3>
+      <h3 class="console-subtitle">Previous Day's Data:</h3>
 
       <div class="console-data-panel">
       
@@ -58,7 +84,7 @@
 
         
       </div>
-      <h3 class="console-subtitle not-first">Bulk Data Display:</h3>
+      <h3 class="console-subtitle">Bulk Data Display:</h3>
       
       <div class="console-data-panel">
         <input type="checkbox" class="checkbox" value=4>
@@ -72,7 +98,9 @@
   </div>
 
 
+  <script src="utility.js"></script>
   <script src="parse.js"></script>
   <script src="lineChart.js"></script>
+
 </body>
 </html>
