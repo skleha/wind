@@ -205,6 +205,11 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
               .duration(750)
               .style("opacity", 1)
 
+            graphTitle
+              .transition()
+              .duration(750)
+              .style("opacity", 1)
+            
             svg.selectAll("circle")
               .transition()
               .duration(750)
@@ -213,6 +218,11 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
           } else {
 
             checkboxDatasets[idx]
+              .transition()
+              .duration(750)
+              .style("opacity", 0)
+
+            graphTitle
               .transition()
               .duration(750)
               .style("opacity", 0)
