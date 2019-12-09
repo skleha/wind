@@ -1,5 +1,5 @@
 
-// d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/realtime2/FTPC1.txt", function (error, text) {
+d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/realtime2/FTPC1.txt", function (error, text) {
   if (error) throw error;
   const parsedData = parseAllWindData(text);
   const displayData = createDisplayData(parsedData);
