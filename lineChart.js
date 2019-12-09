@@ -38,7 +38,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
     .attr("class", "y-axis")
     .call(yAxisCall);
 
-  // Data
+  // Line graphs, data points
 
   let allWindDataPoint = svg
     .selectAll("circle")
@@ -226,7 +226,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
               .duration(750)
               .style("opacity", 1)
             
-            svg.selectAll("compareCircle")
+            comparisonPoint
               .transition()
               .duration(750)
               .style("opacity", 1)   
@@ -243,7 +243,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
               .duration(750)
               .style("opacity", 0)
 
-            svg.selectAll("compareCircle")
+            comparisonPoint
               .transition()
               .duration(750)
               .style("opacity", 0)   
