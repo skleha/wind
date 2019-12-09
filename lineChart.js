@@ -109,17 +109,16 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
     .style("stroke-width", 2)
     .style("opacity", 0)
 
-
-
-
   // Axis labels
+
+  const preTitle = "Comparison Day: "
 
   let graphTitle = svg.append("text")
     .attr("transform",
       "translate(" + (width / 2) + " ," +
       (5) + ")")
     .style("text-anchor", "middle")
-    .text(getDateString("Yesterday"));
+    .text(`${preTitle} ${getDateString("Yesterday")}`);
 
   svg.append("text")
     .attr("transform",
@@ -176,7 +175,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
     const dateString = getDateString(selectedData);
 
     graphTitle
-      .text(`Comparison date ${dateString}`)
+      .text(`${preTitle} ${dateString}`)
 
   }
 
