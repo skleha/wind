@@ -232,7 +232,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
             checkboxDatasets[idx]
               .transition()
               .duration(750)
-              .style("opacity", .33)
+              .style("opacity", .3)
 
           } else {
 
