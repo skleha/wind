@@ -3,7 +3,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
   if (error) throw error;
   const parsedData = parseAllWindData(text);
   const displayData = createDisplayData(parsedData);
-  console.log(displayData);
+  
 
   let margin = { top: 10, right: 325, bottom: 48, left: 55 },
     width = 1100 - margin.left - margin.right,
@@ -57,20 +57,18 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
     .x(d => d.hourValue)
     .y(d => d.value)
 
-  const thing = regressionGenerator(displayData.allWindData);
-  console.log(thing);
+  const allWindLine = regressionGenerator(displayData.allWindData);
 
-
-  // let allWindRegression = svg
-  //   .append("g")
-  //   .append("path")
-  //   .datum(regressionGenerator)
-  //   .attr("d", d3.line()
-  //     .x((d) => { return x(d.hourValue) })
-  //     .y((d) => { return y(d.value) }))
-  //   .attr("stroke", "#000000")
-  //   .style("fill", "none")
-  //   .style("stroke-width", 3)
+  let allWindRegression = svg
+    .append("g")
+    .append("path")
+    .datum(allWindLine)
+    .attr("d", d3.line()
+      .x((d) => { return x(d[0]) })
+      .y((d) => { return y(d[1]) }))
+    .attr("stroke", "#8b4ef5")
+    .style("fill", "none")
+    .style("stroke-width", 3)
 
 
   let currentDay = svg
@@ -126,7 +124,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
         .curve(d3.curveBasis)
         .x((d) => { return x(d.hourValue) })
         .y((d) => { return y(d.value) }))
-    .attr("stroke", "#4287f5")
+    .attr("stroke", "#1b6ff5")
     .style("fill", "none")
     .style("stroke-width", 2)
     .style("opacity", 0)
@@ -165,7 +163,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
   svg.append("circle").attr("cx", legendDotX).attr("cy", 100).attr("r", 6).style("fill", "#000000")
   svg.append("circle").attr("cx", legendDotX).attr("cy", 130).attr("r", 6).style("fill", "#DC2828")
   svg.append("circle").attr("cx", legendDotX).attr("cy", 160).attr("r", 6).style("fill", "#4287f5")
-  svg.append("circle").attr("cx", legendDotX).attr("cy", 190).attr("r", 6).style("fill", "#4287f5")
+  svg.append("circle").attr("cx", legendDotX).attr("cy", 190).attr("r", 6).style("fill", "#1b6ff5")
   svg.append("circle").attr("cx", legendDotX).attr("cy", 220).attr("r", 6).style("fill", "#636363")
 
   svg.append("text").attr("x", legendLabelX).attr("y", 100).text("Today's Windspeed").style("font-size", "15px").attr("alignment-baseline", "middle")
