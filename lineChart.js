@@ -51,8 +51,6 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
     .style("fill", "#636363")
     .style("opacity", 0)
 
-  // regressionGenerator = f(displayData.allWindData);
-
   const regressionGenerator = d3.regressionPoly()
     .x(d => d.hourValue)
     .y(d => d.value)

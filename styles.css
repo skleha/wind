@@ -155,3 +155,13 @@ body  {
 .modal-child.open {
   visibility: visible;
 }
+
+sup {
+  font-size:xx-small; vertical-align:super;
+}
+
+.footnote {
+  margin-top: 10px;
+  text-align: justify;
+  font-size: 12px;
+}

@@ -26,8 +26,8 @@
         The most obvious comparison is between today's wind (already in progress) and yesterday's wind. With some reliability, the visual comparison between
         the two will give some clue as to what the future holds, and the user can predict what the wind strength <i>will</i> be for the remainder of the day.</p><br>
       <p class="description">
-        But there are other points of comparison available in the application.  The user may view the windspeed from other days, aside from yesterday.  The user may view
-        all days in the data set -- some six months worth of data.  By looking at the data from different aspects, the user can then have a better
+        There are other points of comparison available in the application.  The user may view the windspeed from other days, aside from yesterday.  The user may view
+        all days in the data set -- 45 days worth of data.  By looking at the data from different aspects, the user can then have a better
         idea of what is a normal, average, or typical wind pattern -- e.g. generally speaking, the wind may be light in the morning, heavy in the afternoon. 
       </p><br>
       <p class="description">You may be the sailor deciding whether to go with the big sail (for light wind) or the small sail (for heavy wind). Or you may be someone
@@ -97,12 +97,17 @@
       
       <div class="console-data-panel">
         <input type="checkbox" class="checkbox" value=4>
-        <label class="checkbox-label" for="myCheckBox">All Data Points</label>
+        <label class="checkbox-label" for="myCheckBox">45 Days of Data</label>
       
         <input type="checkbox" class="checkbox" value=5>
-        <label class="checkbox-label" for="myCheckBox">All Data Regression Line</label>
+        <label class="checkbox-label" for="myCheckBox">45 Days Regression Line</label>
       </div>
-
+      
+      <h3 class="console-subtitle">Notes:</h3>
+      <div class="footnote">Note:  data provided by the National Oceanographic and Atmospheric Administration (NOAA).
+        NOAA manages weather buoys and stations all over the world and makes data available for free via an API.
+      </div>
+  
     </div>
 
       <div class="graph" id="my_dataviz"></div>
