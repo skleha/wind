@@ -3,7 +3,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
   if (error) throw error;
   const parsedData = parseAllWindData(text);
   const displayData = createDisplayData(parsedData);
-  console.log(displayData);
+  
 
   let margin = { top: 10, right: 325, bottom: 48, left: 55 },
     width = 1100 - margin.left - margin.right,
@@ -50,6 +50,27 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
     .attr("r", 2.5)
     .style("fill", "#636363")
     .style("opacity", 0)
+
+  // regressionGenerator = f(displayData.allWindData);
+
+  const regressionGenerator = d3.regressionPoly()
+    .x(d => d.hourValue)
+    .y(d => d.value)
+
+  const allWindLine = regressionGenerator(displayData.allWindData);
+
+  let allWindRegression = svg
+    .append("g")
+    .append("path")
+    .datum(allWindLine)
+    .attr("d", d3.line()
+      .x((d) => { return x(d[0]) })
+      .y((d) => { return y(d[1]) }))
+    .attr("stroke", "#8b4ef5")
+    .style("fill", "none")
+    .style("stroke-width", 14)
+    .style("opacity", 0)
+
 
   let currentDay = svg
     .append("g")
@@ -104,7 +125,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
         .curve(d3.curveBasis)
         .x((d) => { return x(d.hourValue) })
         .y((d) => { return y(d.value) }))
-    .attr("stroke", "#4287f5")
+    .attr("stroke", "#1b6ff5")
     .style("fill", "none")
     .style("stroke-width", 2)
     .style("opacity", 0)
@@ -143,14 +164,16 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
   svg.append("circle").attr("cx", legendDotX).attr("cy", 100).attr("r", 6).style("fill", "#000000")
   svg.append("circle").attr("cx", legendDotX).attr("cy", 130).attr("r", 6).style("fill", "#DC2828")
   svg.append("circle").attr("cx", legendDotX).attr("cy", 160).attr("r", 6).style("fill", "#4287f5")
-  svg.append("circle").attr("cx", legendDotX).attr("cy", 190).attr("r", 6).style("fill", "#4287f5")
+  svg.append("circle").attr("cx", legendDotX).attr("cy", 190).attr("r", 6).style("fill", "#1b6ff5")
   svg.append("circle").attr("cx", legendDotX).attr("cy", 220).attr("r", 6).style("fill", "#636363")
+  svg.append("circle").attr("cx", legendDotX).attr("cy", 250).attr("r", 6).style("fill", "#8b4ef5")
 
   svg.append("text").attr("x", legendLabelX).attr("y", 100).text("Today's Windspeed").style("font-size", "15px").attr("alignment-baseline", "middle")
   svg.append("text").attr("x", legendLabelX).attr("y", 130).text("Today's Windspeed Average").style("font-size", "15px").attr("alignment-baseline", "middle")
   svg.append("text").attr("x", legendLabelX).attr("y", 160).text("Comparison Day Windspeed").style("font-size", "15px").attr("alignment-baseline", "middle")
   svg.append("text").attr("x", legendLabelX).attr("y", 190).text("Comparison Day Windspeed Avg").style("font-size", "15px").attr("alignment-baseline", "middle")
   svg.append("text").attr("x", legendLabelX).attr("y", 220).text("All Wind Data Points").style("font-size", "15px").attr("alignment-baseline", "middle")
+  svg.append("text").attr("x", legendLabelX).attr("y", 250).text("All Data Regression Line").style("font-size", "15px").attr("alignment-baseline", "middle")
 
   // Update display based on drop down
 
@@ -206,7 +229,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
   
   function checkboxUpdate() {
     
-    const checkboxDatasets = [currentDay, currentAvg, comparisonDay, comparisonAvg, allWindDataPoint];
+    const checkboxDatasets = [currentDay, currentAvg, comparisonDay, comparisonAvg, allWindDataPoint, allWindRegression];
     
     d3.selectAll(".checkbox").each(function(d) {
       let cb = d3.select(this);
@@ -258,6 +281,25 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
               .transition()
               .duration(750)
               .style("opacity", .3)
+
+          } else {
+
+            checkboxDatasets[idx]
+              .transition()
+              .duration(750)
+              .style("opacity", 0)
+          }
+
+          break;
+
+        case 5:
+          
+          if (cb.property("checked")) {
+
+            checkboxDatasets[idx]
+              .transition()
+              .duration(750)
+              .style("opacity", .5)
 
           } else {
 
