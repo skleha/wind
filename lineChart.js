@@ -51,6 +51,28 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
     .style("fill", "#636363")
     .style("opacity", 0)
 
+  // regressionGenerator = f(displayData.allWindData);
+
+  const regressionGenerator = d3.regressionPoly()
+    .x(d => d.hourValue)
+    .y(d => d.value)
+
+  const thing = regressionGenerator(displayData.allWindData);
+  console.log(thing);
+
+
+  // let allWindRegression = svg
+  //   .append("g")
+  //   .append("path")
+  //   .datum(regressionGenerator)
+  //   .attr("d", d3.line()
+  //     .x((d) => { return x(d.hourValue) })
+  //     .y((d) => { return y(d.value) }))
+  //   .attr("stroke", "#000000")
+  //   .style("fill", "none")
+  //   .style("stroke-width", 3)
+
+
   let currentDay = svg
     .append("g")
     .append("path")
