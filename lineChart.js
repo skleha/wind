@@ -68,7 +68,8 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
       .y((d) => { return y(d[1]) }))
     .attr("stroke", "#8b4ef5")
     .style("fill", "none")
-    .style("stroke-width", 3)
+    .style("stroke-width", 14)
+    .style("opacity", .5)
 
 
   let currentDay = svg
