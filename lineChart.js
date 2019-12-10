@@ -69,7 +69,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
     .attr("stroke", "#8b4ef5")
     .style("fill", "none")
     .style("stroke-width", 14)
-    .style("opacity", .5)
+    .style("opacity", 0)
 
 
   let currentDay = svg
@@ -166,12 +166,14 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
   svg.append("circle").attr("cx", legendDotX).attr("cy", 160).attr("r", 6).style("fill", "#4287f5")
   svg.append("circle").attr("cx", legendDotX).attr("cy", 190).attr("r", 6).style("fill", "#1b6ff5")
   svg.append("circle").attr("cx", legendDotX).attr("cy", 220).attr("r", 6).style("fill", "#636363")
+  svg.append("circle").attr("cx", legendDotX).attr("cy", 250).attr("r", 6).style("fill", "#8b4ef5")
 
   svg.append("text").attr("x", legendLabelX).attr("y", 100).text("Today's Windspeed").style("font-size", "15px").attr("alignment-baseline", "middle")
   svg.append("text").attr("x", legendLabelX).attr("y", 130).text("Today's Windspeed Average").style("font-size", "15px").attr("alignment-baseline", "middle")
   svg.append("text").attr("x", legendLabelX).attr("y", 160).text("Comparison Day Windspeed").style("font-size", "15px").attr("alignment-baseline", "middle")
   svg.append("text").attr("x", legendLabelX).attr("y", 190).text("Comparison Day Windspeed Avg").style("font-size", "15px").attr("alignment-baseline", "middle")
   svg.append("text").attr("x", legendLabelX).attr("y", 220).text("All Wind Data Points").style("font-size", "15px").attr("alignment-baseline", "middle")
+  svg.append("text").attr("x", legendLabelX).attr("y", 250).text("All Data Regression Line").style("font-size", "15px").attr("alignment-baseline", "middle")
 
   // Update display based on drop down
 
@@ -227,7 +229,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
   
   function checkboxUpdate() {
     
-    const checkboxDatasets = [currentDay, currentAvg, comparisonDay, comparisonAvg, allWindDataPoint];
+    const checkboxDatasets = [currentDay, currentAvg, comparisonDay, comparisonAvg, allWindDataPoint, allWindRegression];
     
     d3.selectAll(".checkbox").each(function(d) {
       let cb = d3.select(this);
@@ -279,6 +281,25 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
               .transition()
               .duration(750)
               .style("opacity", .3)
+
+          } else {
+
+            checkboxDatasets[idx]
+              .transition()
+              .duration(750)
+              .style("opacity", 0)
+          }
+
+          break;
+
+        case 5:
+          
+          if (cb.property("checked")) {
+
+            checkboxDatasets[idx]
+              .transition()
+              .duration(750)
+              .style("opacity", .5)
 
           } else {
 
