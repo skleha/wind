@@ -166,8 +166,13 @@ sup {
   font-size: 12px;
 }
 
+.loader-and-graph {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-.loader {
+#loader {
   border: 16px solid #f3f3f3;
   border-top: 16px solid #3498db;
   border-radius: 50%;
