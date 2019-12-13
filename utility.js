@@ -28,6 +28,9 @@ function fireWhenReady(func) {
 fireWhenReady(openModal);
 fireWhenReady(closeModal);
 
+function delayLoad() {
+  setTimeout(showGraph, 3000);
+}
 
 function showGraph() {
   document.getElementById("loader").style.display = "none";
