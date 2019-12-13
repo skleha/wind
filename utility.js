@@ -27,3 +27,11 @@ function fireWhenReady(func) {
 
 fireWhenReady(openModal);
 fireWhenReady(closeModal);
+
+
+
+function showGraph() {
+  document.getElementById("loader").style.display = "none";
+  document.getElementById("my_dataviz").style.display = "block";
+}
+
