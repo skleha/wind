@@ -38,6 +38,8 @@ function fireWhenReady(func) {
 
 fireWhenReady(openModal);
 fireWhenReady(closeModal);
+fireWhenReady(closeIntro);
+
 
 function delayLoad() {
   setTimeout(showGraph, 3000);
