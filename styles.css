@@ -22,13 +22,6 @@ h2 {
   cursor: pointer;
 }
 
-.modal-child {
-  background-color: white;
-  opacity: .8;
-  border-radius: 10px;
-  padding: 15px;
-}
-
 p {
   color: black;
 }
@@ -124,7 +117,6 @@ body  {
   color: #585857;
 }
 
-
 .intro-modal {
   position: fixed;
   top: 0;
@@ -139,7 +131,7 @@ body  {
 }
 
 .intro-modal.close {
-   visibility: visible;
+   visibility: hidden;
    opacity: 0;
    transition: visibility 0s, opacity 1s;
 }
@@ -152,7 +144,7 @@ body  {
   visibility: visible;
 }
 
-.modal-child.close {
+.intro-modal-child.close {
   visibility: hidden;
 }
 
@@ -170,7 +162,6 @@ body  {
   margin-right: auto;
   opacity: 1;
 }
-
 
 .modal {
   position: fixed;
@@ -197,6 +188,10 @@ body  {
   top: 20%;
   left: 50%;
   transform: translate(-50%, -10%);
+  background-color: white;
+  opacity: .8;
+  border-radius: 10px;
+  padding: 15px;
   visibility: hidden;
 }
 
