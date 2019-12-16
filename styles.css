@@ -125,7 +125,7 @@ body  {
   left: 0;
   z-index: 2;
   visibility: visible;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0,0,0,0.8);
   opacity: 1;
   transition: visibility .75s, opacity .75s;
 }
@@ -138,10 +138,14 @@ body  {
 
 .intro-modal-child {
   position: absolute;
-  top: 20%;
+  top: 15%;
   left: 50%;
   transform: translate(-50%, -10%);
   visibility: visible;
+   background-color: #FFFFF3;
+   padding: 20px;
+   border-radius: 10px;
+
 }
 
 .intro-modal-child.close {
@@ -151,7 +155,7 @@ body  {
 #intro-modal-button {
   display: block;
   height: 30px;
-  width: 80px;
+  width: 160px;
   font-size: 16px;
   background-color: #0080ff;
   color: white;
