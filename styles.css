@@ -125,7 +125,7 @@ body  {
   left: 0;
   z-index: 2;
   visibility: visible;
-  background-color: rgba(0,0,0,0.8);
+  background-color: rgba(0,0,0,0.85);
   opacity: 1;
   transition: visibility .75s, opacity .75s;
 }
