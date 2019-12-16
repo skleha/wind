@@ -124,6 +124,54 @@ body  {
   color: #585857;
 }
 
+.intro-modal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 2;
+  visibility: visible;
+  background-color: rgba(0,0,0,0.4);
+  opacity: 1;
+  transition: visibility .75s, opacity .75s;
+}
+
+.intro-modal.close {
+   visibility: visible;
+   opacity: 0;
+   transition: visibility 0s, opacity 1s;
+}
+
+
+.intro-modal-child {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -10%);
+  visibility: visible;
+}
+
+.modal-child.close {
+  visibility: hidden;
+}
+
+
+#intro-modal-button {
+  display: block;
+  height: 30px;
+  width: 80px;
+  font-size: 16px;
+  background-color: #0080ff;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 1;
+}
+
 .modal {
   position: fixed;
   top: 0;
