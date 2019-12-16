@@ -124,6 +124,7 @@ body  {
   color: #585857;
 }
 
+
 .intro-modal {
   position: fixed;
   top: 0;
@@ -143,7 +144,6 @@ body  {
    transition: visibility 0s, opacity 1s;
 }
 
-
 .intro-modal-child {
   position: absolute;
   top: 20%;
@@ -155,7 +155,6 @@ body  {
 .modal-child.close {
   visibility: hidden;
 }
-
 
 #intro-modal-button {
   display: block;
@@ -171,6 +170,7 @@ body  {
   margin-right: auto;
   opacity: 1;
 }
+
 
 .modal {
   position: fixed;
