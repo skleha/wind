@@ -1,4 +1,15 @@
 
+function closeIntro() {
+  let introModal = document.getElementById('intro-modal');
+  let introModalChild = document.getElementById('intro-modal-child');
+  let introModalButton = document.getElementById('intro-modal-button');
+
+  introModalButton.addEventListener('click', () => {
+    introModal.classList.toggle('close');
+    introModalChild.classList.toggle('close');
+  })
+}
+
 function openModal() {
   let openModalButton = document.getElementById("about-button");
   let modal = document.getElementById('modal');
