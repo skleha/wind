@@ -22,13 +22,6 @@ h2 {
   cursor: pointer;
 }
 
-.modal-child {
-  background-color: white;
-  opacity: .8;
-  border-radius: 10px;
-  padding: 15px;
-}
-
 p {
   color: black;
 }
@@ -124,6 +117,56 @@ body  {
   color: #585857;
 }
 
+.intro-modal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 2;
+  visibility: visible;
+  background-color: rgba(0,0,0,0.85);
+  opacity: 1;
+  transition: visibility .75s, opacity .75s;
+}
+
+.intro-modal.close {
+   visibility: hidden;
+   opacity: 0;
+   transition: visibility 0s, opacity 1s;
+}
+
+.intro-modal-child {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -10%);
+  visibility: visible;
+   background-color: #FFFFF3;
+   padding: 20px;
+   border-radius: 10px;
+
+}
+
+.intro-modal-child.close {
+  visibility: hidden;
+}
+
+#intro-modal-button {
+  display: block;
+  height: 30px;
+  width: 160px;
+  font-size: 16px;
+  background-color: #0080ff;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 1;
+}
+
 .modal {
   position: fixed;
   top: 0;
@@ -149,6 +192,10 @@ body  {
   top: 20%;
   left: 50%;
   transform: translate(-50%, -10%);
+  background-color: white;
+  opacity: .8;
+  border-radius: 10px;
+  padding: 15px;
   visibility: hidden;
 }
 
@@ -156,9 +203,9 @@ body  {
   visibility: visible;
 }
 
-sup {
+/* sup {
   font-size:xx-small; vertical-align:super;
-}
+} */
 
 .footnote {
   margin-top: 10px;
