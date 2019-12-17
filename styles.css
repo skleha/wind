@@ -142,14 +142,21 @@ body  {
   left: 50%;
   transform: translate(-50%, -10%);
   visibility: visible;
-   background-color: #FFFFF3;
-   padding: 20px;
-   border-radius: 10px;
-
+  background-color: #FFFFF3;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .intro-modal-child.close {
   visibility: hidden;
+}
+
+.intro-img {
+  width: 675px;
 }
 
 #intro-modal-button {
@@ -202,10 +209,6 @@ body  {
 .modal-child.open {
   visibility: visible;
 }
-
-/* sup {
-  font-size:xx-small; vertical-align:super;
-} */
 
 .footnote {
   margin-top: 10px;
