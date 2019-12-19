@@ -182,6 +182,7 @@ body  {
   left: 0;
   background-image: url("mapfre.jpg");
   background-size: 100%;
+  background-repeat: no-repeat;
   z-index: 2;
   visibility: hidden;
   opacity: 0;
