@@ -4,7 +4,6 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
   const parsedData = parseAllWindData(text);
   const displayData = createDisplayData(parsedData);
   
-
   let margin = { top: 10, right: 325, bottom: 48, left: 55 },
     width = 1100 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
