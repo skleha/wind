@@ -1,1 +1,0 @@
-console.error("\n/Users/matrix2503/Desktop/wind/lineChart.js:1\nimport { parseAllWindData } from \"./parse\";\n^\nParseError: 'import' and 'export' may appear only with 'sourceType: module'");
