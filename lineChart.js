@@ -4,9 +4,9 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
   const parsedData = parseAllWindData(text);
   const displayData = createDisplayData(parsedData);
   
-  let margin = { top: 30, right: 325, bottom: 48, left: 55 },
+  let margin = { top: 30, right: 325, bottom: 65, left: 55 },
     width = 1100 - margin.left - margin.right,
-    height = 560 - margin.top - margin.bottom;
+    height = 550 - margin.top - margin.bottom;
 
   let svg = d3.select("#my_dataviz")
     .append("svg")
