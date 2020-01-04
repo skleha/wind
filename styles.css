@@ -5,7 +5,7 @@
   align-items: flex-end;
   margin-top: 20px;
   height: 80px;
-  padding: 20px;
+  padding: 20px 20px 5px 20px;
   border-bottom: 1px solid lightgray;
 
 }
@@ -58,13 +58,16 @@ p {
 
 .console-and-graph {
   display: flex;
+  justify-content: space-evenly;
+
 }
 
 .console {
   padding: 15px;
   background-color: lightgray;
+  height: 500px;
   width: 250px;
-  border-radius: 0px 0px 10px 0px;
+  border-radius: 0px 0px 10px 10px;
 }
 
 .console-subtitle {
