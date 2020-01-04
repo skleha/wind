@@ -6,7 +6,7 @@ d3.text("https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/real
   
   let margin = { top: 30, right: 325, bottom: 48, left: 55 },
     width = 1100 - margin.left - margin.right,
-    height = 530 - margin.top - margin.bottom;
+    height = 560 - margin.top - margin.bottom;
 
   let svg = d3.select("#my_dataviz")
     .append("svg")
