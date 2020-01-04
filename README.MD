@@ -6,7 +6,7 @@
 ### Description
 Windspeed is a single page application that shows the windspeed over time, as well as its average speed, at Fort Point, San Francisco.  The San Francisco sailing community is the intended audience.  For sailors, awareness of the windspeed is crucial.  Given a certain wind strength, light or strong, a sailor will make decisions before she heads out to sea.  For instance, given a stronger breeze, she might choose a smaller sail and vice versa. Furthermore, the breeze for any one day tends to be autocorrelated; that is, the breeze from one day to the next tends to be similiar.  As such, the conditions you see today will be a strong indicator of what you will see tomorrow (except in the case of storms).  Windspeed, the application, has a pull down menu to show you what the breeze was like for the prior five days. 
 <br></br>
-
+![demo](https://github.com/skleha/wind/blob/master/windVid.gif?raw=true)<br>
 ### Key Features
   * Windspeed over time for Fort Point San Francisco is displayed on a x-y connected scatter plot.
   * The average windspeed is displayed in a red line.
