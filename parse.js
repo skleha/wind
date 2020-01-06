@@ -40,12 +40,12 @@ function parseAllWindData(text) {
 function averageData(oneDayData) {
   const averageData = [];
 
-  for (var i = 9; i < 18; i++) {
+  for (var i = 8; i < 18; i++) {
     let count = 0;
     let sum = 0;
 
     oneDayData.forEach(ele => {
-      if (ele.hourValue >= i && ele.hourValue < i + 1) {
+      if (ele.hourValue > i && ele.hourValue < i + 1) {
         sum += ele.value;
         count++;
       }
@@ -85,14 +85,14 @@ function createDisplayData(allWindData) {
       today.getFullYear(),
       today.getMonth(),
       today.getDate() - i,
-      9
+      8
     );
 
     let end = new Date(
       today.getFullYear(),
       today.getMonth(),
       today.getDate() - i,
-      18
+      19
     );
 
     const oneDayData = allWindData.filter(ele => {
